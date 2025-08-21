@@ -75,7 +75,7 @@ const AccessControlPermissions = () => {
         { key: 'receiptPhotoUploads', label: 'Receipt & Photo Uploads', locked: false },
         { key: 'commentsCollaboration', label: 'Comments & Collaboration', locked: false }
     ];
-
+//its ok
     const userManagement = [
         {
             id: 1,
