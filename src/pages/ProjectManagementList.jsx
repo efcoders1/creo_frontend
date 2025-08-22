@@ -213,10 +213,10 @@ const ProjectListing = () => {
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'draft': return 'bg-gray-600';
-            case 'active': return 'bg-green-600';
-            case 'closed': return 'bg-red-600';
-            default: return 'bg-gray-600';
+            case 'draft': return 'gray';
+            case 'active': return 'success';
+            case 'closed': return 'failure';
+            default: return 'gray';
         }
     };
 
@@ -279,7 +279,7 @@ const ProjectListing = () => {
     return (
         <div>
 
-            <div className="bg-white rounded-lg border border-gray-300 p-3 sm:p-6 mb-4 sm:mb-6">
+            <Card>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 sm:mb-4 gap-3">
                     <div className="flex items-center gap-2 sm:gap-3">
                         <i className="bi bi-kanban text-blue-600 text-base sm:text-lg"></i>
@@ -297,10 +297,11 @@ const ProjectListing = () => {
                     </Button>
                 </div>
                 <p className="text-gray-600 text-sm sm:text-base">Manage and track all construction projects with category-based cost tracking</p>
-            </div>
+            </Card>
+
 
             {/* Filters and Search */}
-            <div className="bg-white rounded-lg border border-gray-300 p-3 sm:p-6 mb-4 sm:mb-6">
+            <Card className="my-5">
                 <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                     <i className="bi bi-funnel text-gray-600 text-base sm:text-lg"></i>
                     <h2 className="text-base sm:text-lg font-semibold text-gray-900">FILTERS & SEARCH</h2>
@@ -357,7 +358,7 @@ const ProjectListing = () => {
                         </select>
                     </div>
                 </div>
-            </div>
+            </Card>
 
             {/* Projects Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
@@ -365,8 +366,13 @@ const ProjectListing = () => {
                     const totals = calculateProjectTotals(project.categoryItems || []);
 
                     return (
+
                         <Card key={project.id}>
+
                             {/* Project Header */}
+
+
+
                             <div className="flex items-start justify-between mb-3 sm:mb-4">
                                 <div className="flex-1">
                                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1">
@@ -378,7 +384,8 @@ const ProjectListing = () => {
                                     </div>
                                 </div>
                                 <Badge color={statusToBadgeColor(project.status)}
-                                       size="sm" className="px-2 sm:px-3 py-1 rounded-full font-medium">
+                                       size="sm"
+                                       className="px-2 sm:px-3 py-1 rounded-full ">
                                     {project.status.toUpperCase()}
                                 </Badge>
                             </div>
@@ -494,6 +501,7 @@ const ProjectListing = () => {
                                     <i className="bi bi-trash"></i>
                                 </Button>
                             </div>
+
 
 
                         </Card>
