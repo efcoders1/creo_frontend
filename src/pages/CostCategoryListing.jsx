@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import DeleteConfirmationModal from './DeleteConfirmationModal.jsx';
 import { useNavigate } from 'react-router-dom';
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const CostCategoryListing = ({ projectId = null, projectName = null }) => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -240,11 +242,11 @@ const CostCategoryListing = ({ projectId = null, projectName = null }) => {
     ]);
 
     const typeOptions = [
-        { value: 'all', label: 'ALL TYPES', color: 'bg-gray-600' },
-        { value: 'LABOUR', label: 'LABOUR', color: 'bg-yellow-500' },
-        { value: 'MATERIAL', label: 'MATERIAL', color: 'bg-green-500' },
-        { value: 'SUBCONTRACTOR', label: 'SUBCONTRACTOR', color: 'bg-blue-500' },
-        { value: 'OVERHEAD', label: 'OVERHEAD', color: 'bg-orange-500' }
+        { value: 'all', label: 'ALL TYPES', color: 'gray' },
+        { value: 'LABOUR', label: 'LABOUR', color: 'warning' },
+        { value: 'MATERIAL', label: 'MATERIAL', color: 'success' },
+        { value: 'SUBCONTRACTOR', label: 'SUBCONTRACTOR', color: 'primary' },
+        { value: 'OVERHEAD', label: 'OVERHEAD', color: 'failure' }
     ];
 
     const sortOptions = [
@@ -319,21 +321,21 @@ const CostCategoryListing = ({ projectId = null, projectName = null }) => {
 
     const getTypeColor = (type) => {
         switch (type) {
-            case 'LABOUR': return 'bg-yellow-500';
-            case 'MATERIAL': return 'bg-green-500';
-            case 'SUBCONTRACTOR': return 'bg-blue-500';
-            case 'OVERHEAD': return 'bg-orange-500';
-            default: return 'bg-gray-500';
+            case 'LABOUR': return 'warning';
+            case 'MATERIAL': return 'success';
+            case 'SUBCONTRACTOR': return 'primary';
+            case 'OVERHEAD': return 'failure';
+            default: return 'gray';
         }
     };
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'active': return 'bg-green-600';
-            case 'inactive': return 'bg-gray-600';
-            case 'completed': return 'bg-blue-600';
-            case 'not_applicable': return 'bg-gray-400';
-            default: return 'bg-gray-600';
+            case 'active': return 'success';
+            case 'inactive': return 'warning';
+            case 'completed': return 'primary';
+            case 'not_applicable': return 'failure';
+            default: return 'gray';
         }
     };
 
@@ -402,7 +404,7 @@ const CostCategoryListing = ({ projectId = null, projectName = null }) => {
         <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
             <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
                 {/* Page Header - Responsive */}
-                <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6">
+                <Card>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
                         <div className="flex items-center gap-3">
                             <i className="bi bi-grid-3x3-gap text-blue-600 text-lg"></i>
@@ -415,13 +417,18 @@ const CostCategoryListing = ({ projectId = null, projectName = null }) => {
                                 )}
                             </h1>
                         </div>
-                        <button 
+
+                        <Button
+                            color="primary"
+                            size="md"
+                            className="flex items-center gap-2"
                             onClick={() => navigate('/cost-category')}
-                            className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
                         >
-                            <i className="bi bi-plus-circle mr-2"></i>
-                            CREATE NEW CATEGORY
-                        </button>
+                            <i className="bi bi-plus-circle mr-1 sm:mr-2"></i>
+                            <span className="hidden sm:inline">CREATE NEW CATEGORY</span>
+                            <span className="sm:hidden">CREATE</span>
+                        </Button>
+
                     </div>
                     <p className="text-gray-600 text-sm sm:text-base">
                         {selectedProject === 'all'
@@ -429,10 +436,10 @@ const CostCategoryListing = ({ projectId = null, projectName = null }) => {
                             : `Manage cost categories and budget breakdown for ${currentProject?.name}`
                         }
                     </p>
-                </div>
+                </Card>
 
                 {/* Project Selection & Filters - Responsive */}
-                <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6">
+                <Card>
                     <div className="flex items-center gap-3 mb-4">
                         <i className="bi bi-funnel text-gray-600 text-lg"></i>
                         <h2 className="text-lg font-semibold text-gray-900">PROJECT SELECTION & FILTERS</h2>
@@ -508,7 +515,7 @@ const CostCategoryListing = ({ projectId = null, projectName = null }) => {
                             </select>
                         </div>
                     </div>
-                </div>
+                </Card>
 
                 {/* Project Summary - Responsive Grid */}
                 {selectedProject !== 'all' && (
@@ -573,7 +580,7 @@ const CostCategoryListing = ({ projectId = null, projectName = null }) => {
                         const projectData = getProjectData(category, selectedProject);
 
                         return (
-                            <div key={category.id} className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6 hover:shadow-lg transition-shadow">
+                            <Card key={category.id}>
 
                                 {/* Category Header - Responsive */}
                                 <div className="flex items-start justify-between mb-4">
@@ -584,12 +591,24 @@ const CostCategoryListing = ({ projectId = null, projectName = null }) => {
                                         <div>
                                             <h3 className="font-semibold text-gray-900 text-base sm:text-lg">{category.name}</h3>
                                             <div className="flex flex-wrap items-center gap-1 sm:gap-2 mt-1">
-                                                <span className={`px-2 py-1 text-xs font-medium text-white rounded-full ${getTypeColor(category.type)}`}>
+
+                                                <Badge
+                                                    color={getTypeColor(category.type)}
+                                                    size="sm"
+                                                    className="px-2 sm:px-3 py-1 rounded-full font-medium"
+                                                >
                                                     {category.type}
-                                                </span>
-                                                <span className={`px-2 py-1 text-xs font-medium text-white rounded-full ${getStatusColor(projectData.status)}`}>
+                                                </Badge>
+
+                                                <Badge
+                                                    color={getStatusColor(projectData.status)}
+                                                    size="sm"
+                                                    className="px-2 sm:px-3 py-1 rounded-full font-medium"
+                                                >
                                                     {projectData.status.replace('_', ' ').toUpperCase()}
-                                                </span>
+                                                </Badge>
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -664,29 +683,35 @@ const CostCategoryListing = ({ projectId = null, projectName = null }) => {
                                 </div>
 
                                 {/* Action Buttons - Responsive */}
+
                                 <div className="flex flex-col sm:flex-row gap-2">
-                                    <button
+                                    <Button
+                                        color="primary"
+                                        className="sm:w-auto flex items-center justify-center gap-1"
                                         onClick={() => handleViewCategory(category.id)}
-                                        className="flex-1 px-3 py-2 bg-blue-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
                                     >
                                         <i className="bi bi-eye mr-1"></i>
-                                        View
-                                    </button>
-                                    <button
+                                    </Button>
+
+                                    <Button
+                                        color="gray"
+                                        className="sm:w-auto flex items-center justify-center gap-1"
                                         onClick={() => handleEditCategory(category.id)}
-                                        className="flex-1 px-3 py-2 bg-gray-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors"
                                     >
                                         <i className="bi bi-pencil mr-1"></i>
-                                        Edit
-                                    </button>
-                                    <button
+                                    </Button>
+
+                                    <Button
+                                        color="failure"
+                                        className="sm:w-auto flex items-center justify-center gap-1"
                                         onClick={() => handleDeleteCategory(category.id)}
-                                        className="sm:w-auto px-3 py-2 bg-red-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
                                     >
                                         <i className="bi bi-trash"></i>
-                                    </button>
+                                    </Button>
                                 </div>
-                            </div>
+
+
+                            </Card>
                         );
                     })}
                 </div>
