@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams, useLocation } from 'react-router-dom';
-
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 const CostCategoryView = () => {
     const { categoryId } = useParams();
     const [searchParams] = useSearchParams();
@@ -292,21 +293,21 @@ const CostCategoryView = () => {
 
     const getTypeColor = (type) => {
         switch (type) {
-            case 'LABOUR': return 'bg-yellow-500';
-            case 'MATERIAL': return 'bg-green-500';
-            case 'SUBCONTRACTOR': return 'bg-blue-500';
-            case 'OVERHEAD': return 'bg-orange-500';
-            default: return 'bg-gray-500';
+            case 'LABOUR': return 'warning';
+            case 'MATERIAL': return 'success';
+            case 'SUBCONTRACTOR': return 'primary';
+            case 'OVERHEAD': return 'failure';
+            default: return 'gray';
         }
     };
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'active': return 'bg-green-600';
-            case 'inactive': return 'bg-gray-600';
-            case 'completed': return 'bg-blue-600';
-            case 'not_applicable': return 'bg-gray-400';
-            default: return 'bg-gray-600';
+            case 'active': return 'success';
+            case 'inactive': return 'warning';
+            case 'completed': return 'primary';
+            case 'not_applicable': return 'failure';
+            default: return 'gray';
         }
     };
 
@@ -415,7 +416,7 @@ const CostCategoryView = () => {
         <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
             <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
                 {/* Header - Responsive */}
-                <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6">
+              <Card>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
                         <div className="flex items-center gap-3 sm:gap-4">
                             <button
@@ -441,19 +442,23 @@ const CostCategoryView = () => {
                                 </div>
                             </div>
                         </div>
-                        <button
+
+                        <Button
+                            color="primary"
+                            size="md"
+                            className="flex items-center gap-2"
                             onClick={handleEdit}
-                            className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
                         >
                             <i className="bi bi-pencil mr-2"></i>
                             Edit Category
-                        </button>
+                        </Button>
+
                     </div>
                     <p className="text-gray-600 text-sm sm:text-base lg:text-lg">{category.description}</p>
-                </div>
+                </Card>
 
                 {/* Project Selection - Responsive */}
-                <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6">
+                <Card>
                     <div className="flex items-center gap-3 mb-4">
                         <i className="bi bi-building text-blue-600 text-lg"></i>
                         <h2 className="text-lg sm:text-xl font-semibold text-gray-900">PROJECT VIEW</h2>
@@ -474,10 +479,10 @@ const CostCategoryView = () => {
                             ))}
                         </select>
                     </div>
-                </div>
+                </Card>
 
                 {/* Budget Overview - Responsive Grid */}
-                <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6">
+                <Card>
                     <div className="flex items-center gap-3 mb-4 sm:mb-6">
                         <i className="bi bi-bar-chart text-green-600 text-lg"></i>
                         <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
@@ -556,11 +561,11 @@ const CostCategoryView = () => {
                             </div>
                         </div>
                     )}
-                </div>
+                </Card>
 
                 {/* All Projects Breakdown - Responsive Table */}
                 {selectedProject === 'all' && (
-                    <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6">
+                    <Card>
                         <div className="flex items-center gap-3 mb-4 sm:mb-6">
                             <i className="bi bi-table text-purple-600 text-lg"></i>
                             <h2 className="text-lg sm:text-xl font-semibold text-gray-900">PROJECT BREAKDOWN</h2>
@@ -645,9 +650,15 @@ const CostCategoryView = () => {
                                                 {data.variance}
                                             </td>
                                             <td className="text-center py-3">
-                                                <span className={`px-2 py-1 text-xs font-medium text-white rounded-full ${getStatusColor(data.status)}`}>
+                                                <Badge
+                                                    color={getStatusColor(data.status)}
+                                                    size="sm"
+                                                    className="inline-flex px-2 sm:px-3 py-1 rounded-full font-medium w-auto"
+                                                >
                                                     {data.status.replace('_', ' ').toUpperCase()}
-                                                </span>
+                                                </Badge>
+
+
                                             </td>
                                             <td className="text-right py-3">
                                                 <span className={`font-medium ${
@@ -663,60 +674,67 @@ const CostCategoryView = () => {
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </Card>
                 )}
 
                 {/* Category Details - Responsive Grid */}
-                <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6">
-                    <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                        <i className="bi bi-info-circle text-gray-600 text-lg"></i>
-                        <h2 className="text-lg sm:text-xl font-semibold text-gray-900">CATEGORY DETAILS</h2>
-                    </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                        <div className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Category Name</label>
-                                <div className="text-base sm:text-lg font-semibold text-gray-900">{category.name}</div>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Category Type</label>
-                                <span className={`px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-white rounded-full ${getTypeColor(category.type)}`}>
-                                    {category.type}
-                                </span>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
-                                <div className="text-base sm:text-lg font-semibold text-gray-900">#{category.order}</div>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                                <span className={`px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-white rounded-full ${getStatusColor(category.status)}`}>
-                                    {category.status.toUpperCase()}
-                                </span>
-                            </div>
+                <Card>
+                        <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                            <i className="bi bi-info-circle text-gray-600 text-lg"></i>
+                            <h2 className="text-lg sm:text-xl font-semibold text-gray-900">CATEGORY DETAILS</h2>
                         </div>
 
-                        <div className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                                <div className="text-gray-900 text-sm sm:text-base">{category.description}</div>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Category Name</label>
+                                    <div className="text-base sm:text-lg font-semibold text-gray-900">{category.name}</div>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Category Type</label>
+                                    <Badge
+                                        color={getTypeColor(category.type)}
+                                        size="sm"
+                                        className="inline-flex w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full font-medium"
+                                    >
+                                        {category.type}
+                                    </Badge>
+
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
+                                    <div className="text-base sm:text-lg font-semibold text-gray-900">#{category.order}</div>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                                    <span className={`px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-white rounded-full ${getStatusColor(category.status)}`}>
+                                        {category.status.toUpperCase()}
+                                    </span>
+                                </div>
                             </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Created By</label>
-                                <div className="text-gray-900 text-sm sm:text-base">{category.createdBy}</div>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Last Updated</label>
-                                <div className="text-gray-900 text-sm sm:text-base">{category.lastUpdated}</div>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Usage Count</label>
-                                <div className="text-gray-900 text-sm sm:text-base">{category.usageCount} projects</div>
+
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                    <div className="text-gray-900 text-sm sm:text-base">{category.description}</div>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Created By</label>
+                                    <div className="text-gray-900 text-sm sm:text-base">{category.createdBy}</div>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Last Updated</label>
+                                    <div className="text-gray-900 text-sm sm:text-base">{category.lastUpdated}</div>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Usage Count</label>
+                                    <div className="text-gray-900 text-sm sm:text-base">{category.usageCount} projects</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+               </Card>
+
             </div>
         </div>
     );
