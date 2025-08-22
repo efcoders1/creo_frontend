@@ -1,15 +1,19 @@
 import React from 'react';
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const ViewCategoryPage = ({ budget, onBack, onEdit }) => {
     if (!budget) return null;
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'draft': return 'bg-gray-600';
-            case 'pending_review': return 'bg-yellow-600';
-            case 'approved': return 'bg-green-600';
-            case 'completed': return 'bg-blue-600';
-            default: return 'bg-gray-600';
+            case 'draft': return 'gray';
+            case 'pending_review': return 'warning';
+            case 'approved': return 'success';
+            case 'completed': return 'primary';
+            default: return 'gray';
+
+
         }
     };
 
@@ -29,11 +33,13 @@ const ViewCategoryPage = ({ budget, onBack, onEdit }) => {
 
     const getCategoryTypeColor = (type) => {
         switch (type) {
-            case 'LABOUR': return 'bg-yellow-500';
-            case 'MATERIAL': return 'bg-green-500';
-            case 'SUBCONTRACTOR': return 'bg-blue-500';
-            case 'OVERHEAD': return 'bg-orange-500';
-            default: return 'bg-gray-500';
+            case 'LABOUR': return 'warning';
+            case 'MATERIAL': return 'success';
+            case 'SUBCONTRACTOR': return 'primary';
+            case 'OVERHEAD': return 'failure';
+            default: return 'gray';
+
+
         }
     };
 
@@ -70,13 +76,7 @@ const ViewCategoryPage = ({ budget, onBack, onEdit }) => {
                         <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">VIEW BUDGET DETAILS</h1>
                     </div>
                     <div className="flex gap-3">
-                        <button
-                            onClick={() => onEdit(budget)}
-                            className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors text-sm sm:text-base"
-                        >
-                            <i className="bi bi-pencil mr-2"></i>
-                            EDIT
-                        </button>
+
                     </div>
                 </div>
                 <p className="text-gray-600 text-sm sm:text-base">Detailed view of budget planning and categories</p>
@@ -99,9 +99,13 @@ const ViewCategoryPage = ({ budget, onBack, onEdit }) => {
                                     <span className="text-sm font-medium text-gray-600">Job Code:</span>
                                     <span className="text-sm font-bold text-blue-600">{budget.jobCode}</span>
                                 </div>
-                                <span className={`px-3 py-1 rounded-full text-xs font-medium text-white self-start ${getStatusColor(budget.budgetStatus)}`}>
+                                <Badge
+                                    color={getStatusColor(budget.budgetStatus)}
+                                    className="px-3 py-1 rounded-full text-xs font-medium text-white self-start"
+                                >
                                     {getStatusLabel(budget.budgetStatus)}
-                                </span>
+                                </Badge>
+
                             </div>
                         </div>
 
@@ -179,27 +183,38 @@ const ViewCategoryPage = ({ budget, onBack, onEdit }) => {
             </div>
 
             {/* Budget Categories */}
-            <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6">
+            <Card>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
                     <div className="flex items-center gap-3">
                         <i className="bi bi-list-ul text-gray-600 text-lg"></i>
                         <h2 className="text-lg sm:text-xl font-semibold text-gray-900">BUDGET CATEGORIES</h2>
                     </div>
-                    <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full self-start">
+                    <Badge
+                        color="info"
+                        size="sm"
+                        className="px-3 py-1 rounded-full self-start"
+                    >
                         {budget.categories.length} Categories
-                    </span>
+                    </Badge>
+
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                     {budget.categories.map((category, index) => (
-                        <div key={index} className="border border-gray-200 rounded-lg p-3 sm:p-4 hover:shadow-md transition-shadow">
+
+                        <Card key={index}>
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 mb-3">
                                 <h4 className="font-semibold text-gray-900 text-sm sm:text-base truncate">{category.name}</h4>
-                                <span className={`px-2 py-1 rounded-full text-xs font-medium text-white self-start ${getCategoryTypeColor(category.type)}`}>
+                                <Badge
+                                    color={getCategoryTypeColor(category.type)}
+                                    size="sm"
+                                    className="px-2 sm:px-3 py-1 rounded-full font-medium self-start whitespace-nowrap"
+                                >
                                     {category.type}
-                                </span>
+                                </Badge>
+
                             </div>
-                            
+
                             <div className="space-y-2 text-sm">
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Budgeted:</span>
@@ -217,7 +232,7 @@ const ViewCategoryPage = ({ budget, onBack, onEdit }) => {
                                     <span className="font-bold text-gray-900">{formatCurrency(category.budgeted + category.scopeChange)}</span>
                                 </div>
                             </div>
-                        </div>
+                        </Card>
                     ))}
                 </div>
 
@@ -239,7 +254,7 @@ const ViewCategoryPage = ({ budget, onBack, onEdit }) => {
                         })}
                     </div>
                 </div>
-            </div>
+            </Card>
         </div>
     );
 };
