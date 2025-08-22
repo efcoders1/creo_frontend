@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const CostCategoryEdit = () => {
     const { id } = useParams();
@@ -359,16 +361,25 @@ const CostCategoryEdit = () => {
                             <h1 className="text-sm sm:text-lg lg:text-xl font-semibold text-gray-900 truncate">EDIT COST CATEGORY</h1>
                         </div>
                         <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
-                            <button
+                            {/* Cancel Button */}
+                            <Button
+                                color="gray"
+                                size="md"
+                                className="flex items-center gap-2 w-full sm:w-auto"
                                 onClick={handleCancel}
-                                className="w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors text-xs sm:text-sm lg:text-base"
                             >
-                                CANCEL
-                            </button>
-                            <button
+                                <i className="bi bi-x-circle mr-1 sm:mr-2"></i>
+                                <span className="hidden sm:inline">CANCEL</span>
+                                <span className="sm:hidden">CANCEL</span>
+                            </Button>
+
+                            {/* Save Button */}
+                            <Button
+                                color="primary"
+                                size="md"
+                                className="flex items-center gap-2 w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
                                 onClick={handleSave}
                                 disabled={saving}
-                                className="w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm lg:text-base"
                             >
                                 {saving ? (
                                     <>
@@ -383,8 +394,10 @@ const CostCategoryEdit = () => {
                                         <span className="sm:hidden">SAVE</span>
                                     </>
                                 )}
-                            </button>
+                            </Button>
                         </div>
+
+
                     </div>
                     <p className="text-gray-600 text-xs sm:text-sm lg:text-base leading-relaxed">Edit cost category information and settings</p>
                 </div>
@@ -594,14 +607,23 @@ const CostCategoryEdit = () => {
                                         <h3 className="font-semibold text-gray-900 text-sm sm:text-base truncate">
                                             {formData.name || 'Category Name'}
                                         </h3>
-                                        <span className={`px-2 sm:px-3 py-0.5 sm:py-1 text-xs font-medium text-white rounded w-fit flex-shrink-0 ${
-                                            formData.type === 'LABOUR' ? 'bg-yellow-500' :
-                                                formData.type === 'MATERIAL' ? 'bg-green-500' :
-                                                    formData.type === 'SUBCONTRACTOR' ? 'bg-blue-500' :
-                                                        formData.type === 'OVERHEAD' ? 'bg-orange-500' : 'bg-gray-500'
-                                        }`}>
+                                        <Badge
+                                            size="sm"
+                                            className={`px-2 sm:px-3 py-1 rounded-full font-medium ${
+                                                formData.type === 'LABOUR'
+                                                    ? 'bg-yellow-100 text-yellow-800 '
+                                                    : formData.type === 'MATERIAL'
+                                                        ? 'bg-green-600 text-white'
+                                                        : formData.type === 'SUBCONTRACTOR'
+                                                            ? 'bg-blue-600 text-white'
+                                                            : formData.type === 'OVERHEAD'
+                                                                ? 'bg-red-600 text-white'
+                                                                : 'bg-gray-600'
+                                            }`}
+                                        >
                                             {formData.type}
-                                        </span>
+                                        </Badge>
+
                                     </div>
                                 </div>
                             </div>
@@ -628,9 +650,15 @@ const CostCategoryEdit = () => {
                                 <p className="text-xs text-gray-500 mb-2">Assigned to projects:</p>
                                 <div className="flex flex-wrap gap-1">
                                     {formData.projects.map((project) => (
-                                        <span key={project} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+                                        <Badge
+                                            key={project}
+                                            color="primary"
+                                            size="sm"
+                                            className="px-2 sm:px-3 py-1 rounded-full font-medium"
+                                        >
                                             {project}
-                                        </span>
+                                        </Badge>
+
                                     ))}
                                 </div>
                             </div>
@@ -639,17 +667,26 @@ const CostCategoryEdit = () => {
                 </div>
 
                 {/* Enhanced Action Buttons - Better Mobile Layout */}
-                <div className="flex flex-col gap-2 sm:flex-row sm:gap-3 lg:gap-4 pt-3 sm:pt-4 lg:pt-6">
-                    <button
+                <div className="flex flex-row gap-3 pt-3 sm:pt-4 lg:pt-0">
+                    {/* Cancel Button */}
+                    <Button
+                        color="gray"
+                        size="md"
+                        className="flex items-center gap-2"
                         onClick={handleCancel}
-                        className="w-full sm:flex-1 px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3 border border-gray-400 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors text-xs sm:text-sm lg:text-base"
                     >
-                        CANCEL
-                    </button>
-                    <button
+                        <i className="bi bi-x-circle mr-1 sm:mr-2"></i>
+                        <span className="hidden sm:inline">CANCEL</span>
+                        <span className="sm:hidden">CANCEL</span>
+                    </Button>
+
+                    {/* Save Button */}
+                    <Button
+                        color="primary"
+                        size="md"
+                        className="flex items-center gap-2"
                         onClick={handleSave}
                         disabled={saving}
-                        className="w-full sm:flex-1 px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm lg:text-base"
                     >
                         {saving ? (
                             <>
@@ -664,8 +701,10 @@ const CostCategoryEdit = () => {
                                 <span className="sm:hidden">SAVE</span>
                             </>
                         )}
-                    </button>
+                    </Button>
                 </div>
+
+
             </div>
         </div>
     );
