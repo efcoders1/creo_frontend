@@ -180,12 +180,15 @@ export const customTheme: Partial<FlowbiteTheme> = {
     },
 
     // ==== Card ================================================================
+
     card: {
         root: {
-            base:
-                'rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm',
+            base: 'rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm',
+            children: ' h-auto',
         },
     },
+
+
 
     // ==== Alerts & Badges =====================================================
     alert: {
@@ -214,6 +217,7 @@ export const customTheme: Partial<FlowbiteTheme> = {
                 success: 'bg-green-600 text-white hover:bg-green-700',
                 warning: 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-900 dark:text-yellow-200 dark:hover:bg-yellow-800',
                 failure: 'bg-red-600 text-white hover:bg-red-700',
+                info: 'bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:text-blue-700 hover:bg-blue-100',
             },
             size: {
                 xs: 'p-1 text-xs',
