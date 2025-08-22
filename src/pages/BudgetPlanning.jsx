@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {useNavigate} from "react-router-dom";
-
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 const BudgetPlanning = () => {
     const [budgetData, setBudgetData] = useState([
         {
@@ -126,11 +127,11 @@ const BudgetPlanning = () => {
 
     const getTypeColor = (type) => {
         switch (type) {
-            case 'LABOUR': return 'bg-yellow-500';
-            case 'MATERIAL': return 'bg-green-500';
-            case 'SUBCONTRACTOR': return 'bg-blue-500';
-            case 'OVERHEAD': return 'bg-orange-500';
-            default: return 'bg-gray-500';
+            case 'LABOUR': return 'warning';
+            case 'MATERIAL': return 'success';
+            case 'SUBCONTRACTOR': return 'primary';
+            case 'OVERHEAD': return 'failure';
+            default: return 'gray';
         }
     };
 
@@ -163,7 +164,8 @@ const BudgetPlanning = () => {
             {/* Main Content Container */}
             <div className="max-w-7xl mx-auto space-y-4">
                 {/* Project Budget Overview */}
-                <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6">
+
+                <Card>
                     <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
                         <button onClick={() => navigate('/budget-planning-listing')} className="self-start p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
                             <i className="bi bi-arrow-left text-lg"></i>
@@ -216,16 +218,21 @@ const BudgetPlanning = () => {
                                     readOnly
                                     className="px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 text-sm sm:text-base"
                                 />
-                                <span className="px-3 py-1 bg-yellow-500 text-white text-sm font-medium rounded self-start">
+                                <Badge
+                                    color="warning"
+                                    size="sm"
+                                    className="px-3 py-1 font-medium rounded self-start"
+                                >
                                     DRAFT
-                                </span>
+                                </Badge>
+
                             </div>
                         </div>
                     </div>
-                </div>
+                </Card>
 
                 {/* Budget Categories Section */}
-                <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6">
+                <Card>
                     <div className="flex items-center gap-3 mb-4">
                         <i className="bi bi-currency-dollar text-yellow-600 text-lg"></i>
                         <h2 className="text-lg sm:text-xl font-semibold text-gray-900">BUDGET CATEGORIES</h2>
@@ -347,9 +354,14 @@ const BudgetPlanning = () => {
                                                 </div>
                                                 <div>
                                                     <div className="font-medium text-gray-900">{item.category}</div>
-                                                    <span className={`px-2 py-1 text-xs font-medium text-white rounded ${getTypeColor(item.type)}`}>
+                                                    <Badge
+                                                        color={getTypeColor(item.type)}
+                                                        size="sm"
+                                                        className="px-2 sm:px-3 py-1 rounded-full font-medium"
+                                                    >
                                                         {item.type}
-                                                    </span>
+                                                    </Badge>
+
                                                 </div>
                                             </div>
                                         </td>
@@ -407,7 +419,8 @@ const BudgetPlanning = () => {
                             </tbody>
                         </table>
                     </div>
-                </div>
+
+                </Card>
 
                 {/* Budget Summary */}
                 <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6">
@@ -462,17 +475,36 @@ const BudgetPlanning = () => {
                 </div>
 
                 {/* Footer Actions */}
-                <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                    <button className="px-6 py-3 border border-gray-400 text-gray-700 font-medium rounded hover:bg-gray-50 transition-colors text-sm sm:text-base">
-                        CANCEL
-                    </button>
-                    <button className="px-6 py-3 bg-gray-600 text-white font-medium rounded hover:bg-gray-700 transition-colors text-sm sm:text-base">
-                        SAVE DRAFT
-                    </button>
-                    <button onClick={() => navigate('/budget-planning-listing')} className="px-6 py-3 bg-gray-900 text-white font-medium rounded hover:bg-black transition-colors text-sm sm:text-base">
-                        SUBMIT FOR REVIEW
-                    </button>
+
+
+                <div className="flex flex-col sm:flex-row gap-3">
+                    <Button
+                        color="gray"
+                        size="md"
+                        className="flex items-center gap-2"
+                     >
+                        <span className="hidden sm:inline">  CANCEL</span>
+                    </Button>
+                    <Button
+                        color="success"
+                        size="md"
+                        className="flex items-center gap-2"
+                    >
+                        <span className="hidden sm:inline"> SAVE DRAFT</span>
+                    </Button>
+
+                    <Button
+                        color="primary"
+                        size="md"
+                        className="flex items-center gap-2"
+                        onClick={() => navigate('/budget-planning-listing')}
+                    >
+                        <span className="hidden sm:inline">SUBMIT FOR REVIEW</span>
+                        <span className="sm:hidden">SUBMIT</span>
+                    </Button>
+
                 </div>
+
             </div>
         </div>
     );

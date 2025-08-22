@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const ActualCostTrackingListing = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -283,11 +285,11 @@ const ActualCostTrackingListing = () => {
 
     const getMethodColor = (method) => {
         switch (method) {
-            case 'CASH': return 'bg-green-100 text-green-800';
-            case 'BANK-TRANSFER': return 'bg-blue-100 text-blue-800';
-            case 'CREDIT-CARD': return 'bg-purple-100 text-purple-800';
-            case 'CHECK': return 'bg-orange-100 text-orange-800';
-            default: return 'bg-gray-100 text-gray-800';
+            case 'CASH': return 'success';
+            case 'BANK-TRANSFER': return 'info';
+            case 'CREDIT-CARD': return 'warning';
+            case 'CHECK': return 'failour';
+            default: return 'gray';
         }
     };
 
@@ -465,20 +467,27 @@ Attachments: ${expense.attachments.join(', ')}`);
                             <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">ACTUAL COST TRACKING</h1>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-3">
-                            <button
+                              <Button
+                                color="success"
+                                size="md"
+                                className="flex items-center gap-2"
                                 onClick={handleExportReport}
-                                className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors text-sm sm:text-base"
                             >
                                 <i className="bi bi-download mr-2"></i>
-                                EXPORT REPORT
-                            </button>
-                            <button
+                                <span className="hidden sm:inline"> EXPORT REPORT</span>
+                                <span className="sm:hidden">EXPORT</span>
+                            </Button>
+                            <Button
+                                color="primary"
+                                size="md"
+                                className="flex items-center gap-2"
                                 onClick={handleCreateNew}
-                                className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
                             >
                                 <i className="bi bi-plus-circle mr-2"></i>
-                                ADD NEW EXPENSE
-                            </button>
+                                <span className="hidden sm:inline"> ADD NEW EXPENSE</span>
+                                <span className="sm:hidden">ADD</span>
+                            </Button>
+
                         </div>
                     </div>
                     <p className="text-gray-600 text-sm sm:text-base">Track and manage actual project expenses and costs</p>
@@ -609,7 +618,7 @@ Attachments: ${expense.attachments.join(', ')}`);
                 {/* Expenses Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                     {filteredExpenses.map((expense) => (
-                        <div key={expense.id} className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6 hover:shadow-lg transition-shadow">
+                        <Card key={expense.id} >
 
                             {/* Expense Header */}
                             <div className="flex items-start justify-between mb-4">
@@ -626,9 +635,15 @@ Attachments: ${expense.attachments.join(', ')}`);
                                         </div>
                                     </div>
                                 </div>
-                                <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium ml-2 flex-shrink-0 ${getStatusColor(expense.status)}`}>
+
+                                <Badge
+                                    color={getStatusColor(expense.status)}
+                                    size="sm"
+                                    className="px-2 sm:px-3 py-1 rounded-full font-medium ml-2 flex-shrink-0 whitespace-nowrap"
+                                >
                                     {expense.status.toUpperCase()}
-                                </div>
+                                </Badge>
+
                             </div>
 
                             {/* Amount */}
@@ -666,9 +681,14 @@ Attachments: ${expense.attachments.join(', ')}`);
 
                             {/* Payment Method */}
                             <div className="mb-4">
-                                <span className={`px-2 sm:px-3 py-1 text-xs font-medium rounded-full ${getMethodColor(expense.method)}`}>
+                                <Badge
+                                    color={getMethodColor(expense.method)}
+                                    size="sm"
+                                    className="px-2 sm:px-3 py-1 rounded-full float-left"
+                                >
                                     {expense.method}
-                                </span>
+                                </Badge>
+
                             </div>
 
                             {/* Payment Notes */}
@@ -684,26 +704,36 @@ Attachments: ${expense.attachments.join(', ')}`);
                                 <div className="text-xs sm:text-sm font-medium text-gray-700 mb-2">Attachments:</div>
                                 <div className="flex flex-wrap gap-2">
                                     {expense.attachments.map((attachment, index) => (
-                                        <div key={index} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+                                        <Badge
+                                            key={index}
+                                            color="info"
+                                            size="sm"
+                                            className="px-2 py-1  rounded-full"
+                                        >
                                             <i className="bi bi-paperclip mr-1"></i>
                                             {attachment}
-                                        </div>
+                                        </Badge>
                                     ))}
                                 </div>
+
                             </div>
 
                             {/* Action Buttons */}
                             <div className="flex flex-col sm:flex-row gap-2">
-                                <button
+
+                                <Button
+                                    color="primary"
+                                    size="sm"
+                                    className="flex items-center gap-2"
                                     onClick={() => handleViewExpense(expense.id)}
-                                    className="flex-1 px-3 py-2 bg-blue-600 text-white text-xs sm:text-sm font-medium rounded hover:bg-blue-700 transition-colors"
                                 >
-                                    <i className="bi bi-eye mr-1"></i>
-                                    VIEW
-                                </button>
-                                <button
+                                    <span className="hidden sm:inline">  CANCEL</span>
+                                </Button>
+
+                                <Button
                                     onClick={() => handleEditExpense(expense.id)}
-                                    className={`flex-1 px-3 py-2 text-white text-xs sm:text-sm font-medium rounded transition-colors ${
+                                    size="sm"
+                                    className={`flex items-center  ${
                                         expense.status === 'approved'
                                             ? 'bg-gray-400 cursor-not-allowed'
                                             : 'bg-gray-600 hover:bg-gray-700'
@@ -711,9 +741,12 @@ Attachments: ${expense.attachments.join(', ')}`);
                                     disabled={expense.status === 'approved'}
                                 >
                                     <i className="bi bi-pencil mr-1"></i>
-                                    EDIT
-                                </button>
-                                <button
+                                </Button>
+
+
+
+                                <Button
+                                    size="sm"
                                     onClick={() => handleDeleteExpense(expense.id)}
                                     className={`px-3 py-2 text-white text-xs sm:text-sm font-medium rounded transition-colors ${
                                         expense.status === 'approved'
@@ -723,9 +756,9 @@ Attachments: ${expense.attachments.join(', ')}`);
                                     disabled={expense.status === 'approved'}
                                 >
                                     <i className="bi bi-trash"></i>
-                                </button>
+                                </Button>
                             </div>
-                        </div>
+                        </Card>
                     ))}
                 </div>
 
