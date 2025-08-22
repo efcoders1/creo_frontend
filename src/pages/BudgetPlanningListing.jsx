@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import ViewCategoryPage from './ViewBudgetCategoryPage';
 import EditCategoryPage from './EditBudgetCategoryPage';
 import DeleteConfirmationModal from './DeleteBudgetConfirmationModal';
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const BudgetPlanningListing = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -173,11 +175,11 @@ const BudgetPlanningListing = () => {
     ]);
 
     const statusOptions = [
-        { value: 'all', label: 'ALL STATUS', color: 'bg-gray-600' },
-        { value: 'draft', label: 'DRAFT', color: 'bg-gray-600' },
-        { value: 'pending_review', label: 'PENDING REVIEW', color: 'bg-yellow-600' },
-        { value: 'approved', label: 'APPROVED', color: 'bg-green-600' },
-        { value: 'completed', label: 'COMPLETED', color: 'bg-blue-600' }
+        { value: 'all', label: 'ALL STATUS', color: 'gray' },
+        { value: 'draft', label: 'DRAFT', color: 'gray' },
+        { value: 'pending_review', label: 'PENDING REVIEW', color: 'warning' },
+        { value: 'approved', label: 'APPROVED', color: 'success' },
+        { value: 'completed', label: 'COMPLETED', color: 'primary' }
     ];
 
     const sortOptions = [
@@ -219,11 +221,11 @@ const BudgetPlanningListing = () => {
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'draft': return 'bg-gray-600';
-            case 'pending_review': return 'bg-yellow-600';
-            case 'approved': return 'bg-green-600';
-            case 'completed': return 'bg-blue-600';
-            default: return 'bg-gray-600';
+            case 'draft': return 'gray';
+            case 'pending_review': return 'warning';
+            case 'approved': return 'success';
+            case 'completed': return 'primary';
+            default: return 'gray';
         }
     };
 
@@ -358,13 +360,17 @@ const BudgetPlanningListing = () => {
                             <i className="bi bi-calculator text-blue-600 text-lg"></i>
                             <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">BUDGET PLANNING</h1>
                         </div>
-                        <button 
-                            onClick={() => navigate('/budget-planning')} 
-                            className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
+
+                        <Button
+                            color="primary"
+                            size="md"
+                            className="flex items-center gap-2"
+                            onClick={() => navigate('/budget-planning')}
                         >
-                            <i className="bi bi-plus-circle mr-2"></i>
-                            CREATE NEW BUDGET
-                        </button>
+                            <i className="bi bi-plus-circle mr-1 sm:mr-2"></i>
+                            <span className="hidden sm:inline">CREATE NEW BUDGET</span>
+                            <span className="sm:hidden">CREATE</span>
+                        </Button>
                     </div>
                     <p className="text-gray-600 text-sm sm:text-base">Manage project budgets and track financial planning</p>
                 </div>
@@ -432,7 +438,8 @@ const BudgetPlanningListing = () => {
                 {/* Budgets Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                     {filteredBudgets.map((budget) => (
-                        <div key={budget.id} className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6 hover:shadow-lg transition-shadow">
+
+                        <Card key={budget.id} >
 
                             {/* Budget Header */}
                             <div className="flex items-start justify-between mb-4">
@@ -445,9 +452,14 @@ const BudgetPlanningListing = () => {
                                         <span className="text-xs sm:text-sm font-bold text-blue-600">{budget.jobCode}</span>
                                     </div>
                                 </div>
-                                <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium text-white ml-2 ${getStatusColor(budget.budgetStatus)} whitespace-nowrap`}>
+                                <Badge
+                                    color={getStatusColor(budget.budgetStatus)}
+                                    size="sm"
+                                    className="px-2 sm:px-3 py-1 rounded-full font-medium whitespace-nowrap ml-2"
+                                >
                                     {getStatusLabel(budget.budgetStatus)}
-                                </div>
+                                </Badge>
+
                             </div>
 
                             {/* Budget Details */}
@@ -491,29 +503,34 @@ const BudgetPlanningListing = () => {
                             </div>
 
                             {/* Action Buttons */}
+
                             <div className="flex flex-col sm:flex-row gap-2">
-                                <button
+                                <Button
+                                    color="primary"
+                                    className="sm:w-auto flex items-center justify-center"
                                     onClick={() => handleViewBudget(budget.id)}
-                                    className="flex-1 px-3 sm:px-4 py-2 bg-blue-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
                                 >
-                                    <i className="bi bi-eye mr-1 sm:mr-2"></i>
-                                    VIEW
-                                </button>
-                                <button
+                                    <i className="bi bi-eye"></i>
+                                </Button>
+
+                                <Button
+                                    color="gray"
+                                    className="sm:w-auto flex items-center justify-center"
                                     onClick={() => handleEditBudget(budget.id)}
-                                    className="flex-1 px-3 sm:px-4 py-2 bg-gray-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors"
                                 >
-                                    <i className="bi bi-pencil mr-1 sm:mr-2"></i>
-                                    EDIT
-                                </button>
-                                <button
+                                    <i className="bi bi-pencil"></i>
+                                </Button>
+
+                                <Button
+                                    color="failure"
+                                    className="sm:w-auto flex items-center justify-center"
                                     onClick={() => handleDeleteBudget(budget.id)}
-                                    className="px-3 sm:px-4 py-2 bg-red-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
                                 >
                                     <i className="bi bi-trash"></i>
-                                </button>
+                                </Button>
                             </div>
-                        </div>
+
+                       </Card>
                     ))}
                 </div>
 
