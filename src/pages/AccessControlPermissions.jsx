@@ -176,7 +176,7 @@ const AccessControlPermissions = () => {
             <div className="bg-white rounded-lg border border-gray-300 p-6 mb-4">
                 <div className="flex items-center gap-3 mb-6">
                     <i className="bi bi-speedometer2 text-blue-600 text-lg"></i>
-                    <h2 className="text-lg font-semibold text-gray-900">SYSTEM OVERVIEW</h2>
+                    <h2 className="text-lg font-semibold text-gray-900">SYSTEM OVERVIEW </h2>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
