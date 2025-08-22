@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 const StorageAssetManagement = () => {
     const [activeTab, setActiveTab] = useState('Asset Cards');
     const [searchTerm, setSearchTerm] = useState('');
@@ -480,19 +481,19 @@ const StorageAssetManagement = () => {
     };
 
     const AssetCard = ({ asset }) => (
-        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+        <Card>
             {/* Card Header with Image */}
-            <div className={`${asset.cardColor} h-32 sm:h-48 relative flex items-center justify-center`}>
+            <div className={`${asset.cardColor} h-32 sm:h-48 relative flex items-center justify-center rounded-lg`}>
                 <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs sm:text-sm">
                     {asset.cardNumber}
                 </div>
                 <div className="bg-black bg-opacity-30 rounded-lg px-4 sm:px-8 py-2 sm:py-4">
-                    <h3 className="text-white text-sm sm:text-xl font-semibold text-center">{asset.title}</h3>
+                    <h3 className="text-white text-sm sm:text-lg font-semibold text-center">{asset.title}</h3>
                 </div>
             </div>
 
             {/* Card Content */}
-            <div className="p-3 sm:p-4 space-y-2 sm:space-y-3">
+            <div className="space-y-2 sm:space-y-3">
                 {/* Title */}
                 <h4 className="font-medium text-gray-900 text-sm sm:text-base truncate">{asset.subtitle}</h4>
 
@@ -596,32 +597,39 @@ const StorageAssetManagement = () => {
 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-2 pt-2 sm:pt-3 border-t border-gray-100">
-                    <button
+
+                    <Button
+                        color="primary"
+                        size="sm"
+                        className="flex items-center gap-2"
                         onClick={() => handleViewAsset(asset)}
-                        className="flex-1 px-3 py-2 bg-blue-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
                     >
                         <i className="bi bi-eye mr-1"></i>
-                        View
-                    </button>
+                    </Button>
 
-                    <button
+                    <Button
+                        color="gray"
+                        size="sm"
+                        className="flex items-center gap-2"
                         onClick={() => handleEditAsset(asset)}
-                        className="flex-1 px-3 py-2 bg-gray-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors"
                     >
                         <i className="bi bi-pencil mr-1"></i>
-                        Edit
-                    </button>
+                    </Button>
 
-                    <button
+
+                    <Button
+                        color="failure"
+                        size="sm"
+                        className="flex items-center gap-2"
                         onClick={() => handleDeleteAsset(asset.id)}
-                        className="sm:w-auto px-3 py-2 bg-red-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
                     >
                         <i className="bi bi-trash"></i>
-                    </button>
+                    </Button>
+
                 </div>
 
             </div>
-        </div>
+        </Card>
     );
 
     const FileCard = ({ file }) => (
@@ -637,36 +645,65 @@ const StorageAssetManagement = () => {
                     <h4 className="font-medium text-gray-900 text-sm sm:text-base truncate">{file.name}</h4>
                     <p className="text-xs sm:text-sm text-gray-600 truncate">{file.assetName}</p>
                     <div className="flex flex-wrap gap-2 mt-1 sm:mt-2 text-xs">
-                        <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">{file.type}</span>
-                        <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded">{file.size}</span>
-                        <span className="bg-green-100 text-green-800 px-2 py-1 rounded">{file.category}</span>
+
+                        <Badge
+                            color="info"
+                            size="sm"
+                            className="px-2 py-1 rounded-full"
+                        >
+                            {file.type}
+                        </Badge>
+                        <Badge
+                            color="gray"
+                            size="sm"
+                            className="px-2 py-1 rounded-full"
+                        >
+                            {file.size}
+                        </Badge>
+
+                        <Badge
+                            color="success"
+                            size="sm"
+                            className="px-2 py-1 rounded-full"
+                        >
+                            {file.category}
+                        </Badge>
                     </div>
                 </div>
             </div>
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 mt-3 pt-3 border-t border-gray-100">
-                <button
+
+                <Button
+                    color="primary"
+                    size="sm"
+                    className="flex items-center gap-2"
                     onClick={() => handleViewFile(file)}
-                    className="flex-1 px-2 sm:px-3 py-1 sm:py-2 bg-blue-600 text-white text-xs sm:text-sm font-medium rounded hover:bg-blue-700 transition-colors"
                 >
                     <i className="bi bi-eye mr-1"></i>
-                    View
-                </button>
-                <button
+                </Button>
+
+                <Button
+                    color="gray"
+                    size="sm"
+                    className="flex items-center gap-2"
                     onClick={() => handleEditFile(file)}
-                    className="flex-1 px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white text-xs sm:text-sm font-medium rounded hover:bg-gray-700 transition-colors"
                 >
                     <i className="bi bi-pencil mr-1"></i>
-                    Edit
-                </button>
-                <button
+                </Button>
+
+
+                <Button
+                    color="failure"
+                    size="sm"
+                    className="flex items-center gap-2"
                     onClick={() => handleDeleteFile(file.id)}
-                    className="flex-1 px-2 sm:px-3 py-1 sm:py-2 bg-red-600 text-white text-xs sm:text-sm font-medium rounded hover:bg-red-700 transition-colors"
                 >
-                    <i className="bi bi-trash mr-1"></i>
-                    Delete
-                </button>
+                    <i className="bi bi-trash"></i>
+                </Button>
+
+
             </div>
         </div>
     );
@@ -682,20 +719,28 @@ const StorageAssetManagement = () => {
                             <p className="text-sm sm:text-base text-gray-600">Manage your storage assets, files, and documentation</p>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                            <button
+
+                            <Button
+                                color="success"
+                                size="md"
+                                className="flex items-center gap-2"
                                 onClick={() => setShowAddModal(true)}
-                                className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white font-medium text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-colors "
                             >
                                 <i className="bi bi-plus-circle mr-2"></i>
-                                Add Asset
-                            </button>
-                            <button
+                                <span className="hidden sm:inline">Add Asset</span>
+                                <span className="sm:hidden">Add</span>
+                            </Button>
+
+                            <Button
+                                color="primary"
+                                size="md"
+                                className="flex items-center gap-2"
                                 onClick={() => setShowAddFileModal(true)}
-                                className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-green-600 text-white font-medium text-sm sm:text-base rounded-lg hover:bg-green-700 transition-colors"
                             >
-                                <i className="bi bi-file-plus mr-2"></i>
-                                Add File
-                            </button>
+                                <i className="bi bi-plus-circle mr-2"></i>
+                                <span className="hidden sm:inline">Add File</span>
+                                <span className="sm:hidden">Add</span>
+                            </Button>
                         </div>
                     </div>
 
@@ -713,17 +758,19 @@ const StorageAssetManagement = () => {
                     {/* Tabs */}
                     <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                         {['Asset Cards', 'Main Table', 'Files Gallery'].map((tab) => (
-                            <button
+                            <Button
+                                color="primary"
+                                size="sm"
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`px-4 py-2 text-sm sm:text-base font-medium rounded-lg transition-colors ${
+                                className={`flex items-center gap-2 ${
                                     activeTab === tab
                                         ? 'bg-blue-600 text-white'
                                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                 }`}
                             >
                                 {tab}
-                            </button>
+                            </Button>
                         ))}
                     </div>
                 </div>
@@ -1073,19 +1120,26 @@ const StorageAssetManagement = () => {
                                 </div>
 
                                 <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                                    <button
-                                        type="button"
+
+                                    <Button
+                                        color="gray"
+                                        size="md"
+                                        className="flex items-center gap-2"
                                         onClick={() => setShowAddModal(false)}
-                                        className="flex-1 px-4 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
                                     >
                                         Cancel
-                                    </button>
-                                    <button
+                                    </Button>
+
+                                    <Button
                                         type="submit"
-                                        className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                        color="success"
+                                        size="md"
+                                        className="flex items-center gap-2"
+                                        onClick={() => setShowAddModal(false)}
                                     >
-                                        Add Asset
-                                    </button>
+                                         <span className="hidden sm:inline">Add Asset</span>
+                                        <span className="sm:hidden">Add</span>
+                                    </Button>
                                 </div>
                             </form>
                         </div>
@@ -1193,19 +1247,27 @@ const StorageAssetManagement = () => {
                                 </div>
 
                                 <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                                    <button
-                                        type="button"
+
+
+                                    <Button
+                                        color="gray"
+                                        size="md"
+                                        className="flex items-center gap-2"
                                         onClick={() => setShowAddFileModal(false)}
-                                        className="flex-1 px-4 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
                                     >
                                         Cancel
-                                    </button>
-                                    <button
+                                    </Button>
+
+                                    <Button
                                         type="submit"
-                                        className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                                        color="primary"
+                                        size="md"
+                                        className="flex items-center gap-2"
+                                        onClick={() => setShowAddModal(false)}
                                     >
-                                        Add File
-                                    </button>
+                                        <span className="hidden sm:inline">Add File</span>
+                                        <span className="sm:hidden">Add</span>
+                                    </Button>
                                 </div>
                             </form>
                         </div>
@@ -1609,12 +1671,15 @@ const StorageAssetManagement = () => {
                                 </div>
 
                                 <div className="flex justify-end pt-4">
-                                    <button
+
+                                    <Button
+                                        color="gray"
+                                        size="sm"
+                                        className="flex items-center gap-2"
                                         onClick={() => setShowViewModal(false)}
-                                        className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
                                     >
                                         Close
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -1674,12 +1739,16 @@ const StorageAssetManagement = () => {
                                 </div>
 
                                 <div className="flex justify-end pt-4">
-                                    <button
+                                   
+                                    <Button
+                                        color="gray"
+                                        size="sm"
+                                        className="flex items-center gap-2"
                                         onClick={() => setShowViewFileModal(false)}
-                                        className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
                                     >
                                         Close
-                                    </button>
+                                    </Button>
+
                                 </div>
                             </div>
                         </div>
