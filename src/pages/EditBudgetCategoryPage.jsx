@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 const EditCategoryPage = ({ budget, onBack, onSave, onCancel }) => {
     const [formData, setFormData] = useState({
         projectName: budget?.projectName || '',
@@ -30,11 +31,11 @@ const EditCategoryPage = ({ budget, onBack, onSave, onCancel }) => {
 
     const getCategoryTypeColor = (type) => {
         switch (type) {
-            case 'LABOUR': return 'bg-yellow-500';
-            case 'MATERIAL': return 'bg-green-500';
-            case 'SUBCONTRACTOR': return 'bg-blue-500';
-            case 'OVERHEAD': return 'bg-orange-500';
-            default: return 'bg-gray-500';
+            case 'LABOUR': return 'warning';
+            case 'MATERIAL': return 'success';
+            case 'SUBCONTRACTOR': return 'primary';
+            case 'OVERHEAD': return 'failure';
+            default: return 'gray';
         }
     };
 
@@ -182,17 +183,22 @@ const EditCategoryPage = ({ budget, onBack, onSave, onCancel }) => {
                         <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">EDIT BUDGET</h1>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-3">
-                        <button
+                        <Button
+                            color="gray"
+                            size="md"
+                            className="flex items-center gap-2"
                             onClick={onCancel}
-                            disabled={isSubmitting}
-                            className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50 text-sm sm:text-base"
                         >
-                            CANCEL
-                        </button>
-                        <button
+                            <i className="bi bi-dash-circle mr-1 sm:mr-2"></i>
+                            <span className="hidden sm:inline"> CANCEL</span>
+                        </Button>
+
+                        <Button
+                            color="primary"
+                            size="md"
+                            className="flex items-center gap-2"
                             onClick={handleSubmit}
                             disabled={isSubmitting}
-                            className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center text-sm sm:text-base"
                         >
                             {isSubmitting ? (
                                 <>
@@ -205,7 +211,8 @@ const EditCategoryPage = ({ budget, onBack, onSave, onCancel }) => {
                                     SAVE CHANGES
                                 </>
                             )}
-                        </button>
+                        </Button>
+
                     </div>
                 </div>
                 <p className="text-gray-600 text-sm sm:text-base">Edit budget details and categories</p>
@@ -308,18 +315,27 @@ const EditCategoryPage = ({ budget, onBack, onSave, onCancel }) => {
                                 <i className="bi bi-list-ul text-gray-600 text-lg"></i>
                                 <h2 className="text-lg sm:text-xl font-semibold text-gray-900">BUDGET CATEGORIES</h2>
                             </div>
-                            <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full self-start">
+                            <Badge
+                                color="info"
+                                size="sm"
+                                className="px-3 py-1 rounded-full  self-start"
+                            >
                                 {formData.categories.length} Categories
-                            </span>
+                            </Badge>
+
                         </div>
-                        <button
-                            type="button"
+
+                        <Button
+                            color="success"
+                            size="md"
+                            className="flex items-center gap-2"
                             onClick={addCategory}
-                            className="w-full sm:w-auto px-3 sm:px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors text-sm sm:text-base"
                         >
                             <i className="bi bi-plus-circle mr-2"></i>
                             ADD CATEGORY
-                        </button>
+                            <span className="sm:hidden">ADD</span>
+                        </Button>
+
                     </div>
 
                     <div className="space-y-4 sm:space-y-6">
@@ -408,9 +424,14 @@ const EditCategoryPage = ({ budget, onBack, onSave, onCancel }) => {
                                 </div>
 
                                 <div className="mt-3 flex flex-col sm:flex-row sm:items-center gap-2">
-                                    <span className={`px-2 py-1 rounded-full text-xs font-medium text-white self-start ${getCategoryTypeColor(category.type)}`}>
+                                    <Badge
+                                        color={getCategoryTypeColor(category.type)}
+                                        size="sm"
+                                        className="px-2 sm:px-3 py-1 rounded-full font-medium self-start whitespace-nowrap"
+                                    >
                                         {category.type}
-                                    </span>
+                                    </Badge>
+
                                     <span className="text-sm text-gray-600">
                                         Final: {formatCurrency(category.budgeted + category.scopeChange)}
                                     </span>
