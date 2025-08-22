@@ -221,7 +221,7 @@ function Home() {
                             <div className="flex items-center gap-2 mb-2 sm:mb-0">
                                 <i className="bi bi-calendar-month text-blue-600 text-sm sm:text-base"></i>
                                 <h2 className="text-lg sm:text-xl font-bold text-gray-900">
-                                    Previous Month Overview (Dashboard Home)
+                                    Previous Month Overview
                                 </h2>
                             </div>
 
