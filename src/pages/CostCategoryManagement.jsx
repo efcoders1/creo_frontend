@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const CostCategoryManagement = () => {
     const [categories, setCategories] = useState([
@@ -17,11 +19,11 @@ const CostCategoryManagement = () => {
 
     const getTypeColor = (type) => {
         switch (type) {
-            case 'LABOUR': return 'bg-yellow-500';
-            case 'MATERIAL': return 'bg-green-500';
-            case 'SUBCONTRACTOR': return 'bg-blue-500';
-            case 'OVERHEAD': return 'bg-orange-500';
-            default: return 'bg-gray-500';
+            case 'LABOUR': return 'warning';
+            case 'MATERIAL': return 'success';
+            case 'SUBCONTRACTOR': return 'primary';
+            case 'OVERHEAD': return 'failure';
+            default: return 'gray';
         }
     };
 
@@ -58,18 +60,24 @@ const CostCategoryManagement = () => {
                         {/* Enhanced Responsive Tabs */}
                         <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1.5 sm:gap-2">
                             {['LABOUR', 'MATERIAL', 'SUBCONTRACTOR', 'OVERHEAD'].map((tab) => (
-                                <button
+                                <Button
                                     key={tab}
+                                    color={activeTab === tab ? getTypeColor(tab) : "gray"}
+                                    size="sm"
+                                    className="flex items-center gap-2"
                                     onClick={() => setActiveTab(tab)}
-                                    className={`px-2 sm:px-3 lg:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium rounded transition-colors text-center ${
-                                        activeTab === tab
-                                            ? getTypeColor(tab) + ' text-white'
-                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                                    }`}
                                 >
-                                    <span className="block sm:hidden">{tab.slice(0, 8)}{tab.length > 8 ? '...' : ''}</span>
+                                    {/* Mobile view (shortened text) */}
+                                    <span className="block sm:hidden">
+    {tab.slice(0, 8)}
+                                        {tab.length > 8 ? "..." : ""}
+  </span>
+
+                                    {/* Desktop view (full text) */}
                                     <span className="hidden sm:block">{tab}</span>
-                                </button>
+                                </Button>
+
+
                             ))}
                         </div>
                     </div>
@@ -95,9 +103,14 @@ const CostCategoryManagement = () => {
                                         <div className="flex-1 min-w-0">
                                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                                                 <h3 className="font-semibold text-gray-900 text-sm sm:text-base truncate">{category.name}</h3>
-                                                <span className={`px-2 sm:px-3 py-0.5 sm:py-1 text-xs font-medium text-white rounded w-fit flex-shrink-0 ${getTypeColor(category.type)}`}>
+                                                <Badge
+                                                    color={getTypeColor(category.type)}
+                                                    size="sm"
+                                                    className="px-2 sm:px-3 py-1 rounded-full font-medium"
+                                                >
                                                     {category.type}
-                                                </span>
+                                                </Badge>
+
                                             </div>
                                         </div>
                                     </div>
@@ -120,20 +133,26 @@ const CostCategoryManagement = () => {
                                         </div>
 
                                         <div className="flex gap-1.5 sm:gap-2 flex-shrink-0">
-                                            <button
+                                            <Button
+                                                color="gray"
+                                                size="sm"
+                                                className="px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 font-medium"
                                                 onClick={() => handleEdit(category.id)}
-                                                className="px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 bg-gray-800 text-white text-xs sm:text-sm font-medium rounded hover:bg-gray-900 transition-colors"
                                             >
                                                 EDIT
-                                            </button>
-                                            <button
+                                            </Button>
+
+                                            <Button
+                                                color="failure"
+                                                size="sm"
+                                                className="px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 font-medium"
                                                 onClick={() => handleDelete(category.id)}
-                                                className="px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 bg-gray-800 text-white text-xs sm:text-sm font-medium rounded hover:bg-gray-900 transition-colors"
                                             >
                                                 <span className="hidden sm:inline">DELETE</span>
                                                 <span className="sm:hidden">DEL</span>
-                                            </button>
+                                            </Button>
                                         </div>
+
                                     </div>
                                 </div>
                             ))}
