@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { Card } from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const NotificationsAlerts = () => {
     const [notifications, setNotifications] = useState([
@@ -145,268 +146,284 @@ const NotificationsAlerts = () => {
         switch (action) {
             case 'SCHEDULE PAYMENT':
             case 'REVIEW QUOTE':
-                return 'bg-blue-600 text-white';
+                return 'primary';
             case 'MARK PAID':
             case 'ACCEPT QUOTE':
-                return 'bg-green-600 text-white';
+                return 'success';
             case 'CONTACT VENDOR':
             case 'REQUEST REVISION':
-                return 'bg-red-600 text-white';
+                return 'failure';
             default:
-                return 'bg-gray-600 text-white';
+                return 'gray';
+        }
+    };
+
+    const getStatusBadgeColor = (status) => {
+        switch (status) {
+            case 'active':
+                return 'success';
+            case 'monitoring':
+                return 'primary';
+            default:
+                return 'gray';
         }
     };
 
     return (
-        <div>
+        <div className="min-h-screen bg-gray-50 p-2 sm:p-4 lg:p-6">
+            <div className="max-w-7xl mx-auto">
 
-            {/* Monitoring Badge */}
-            <div className="flex justify-end">
-        <span className="bg-blue-600 text-white px-3 py-1 rounded text-sm font-medium">
-          MONITORING
-        </span>
-            </div>
-
-
-            {/* Alert Summary Section */}
-            <div className="bg-white border border-gray-300 rounded-lg p-6 mb-4">
-                <div className="flex items-center gap-3 mb-4">
-                    <i className="bi bi-bar-chart text-gray-600 text-lg"></i>
-                    <h2 className="text-lg font-medium text-gray-900">ALERT SUMMARY</h2>
+                {/* Monitoring Badge */}
+                <div className="flex justify-end mb-4">
+                    <span className="bg-blue-600 text-white px-3 py-1 rounded text-sm font-medium">MONITORING</span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div className="bg-red-100 border border-red-200 rounded-lg p-6 text-center">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                            <i className="bi bi-exclamation-triangle-fill text-red-600"></i>
-                            <span className="text-sm font-medium text-red-800">CRITICAL ALERTS</span>
-                        </div>
-                        <div className="text-3xl font-bold text-red-900">{alertSummary.critical}</div>
+                {/* Alert Summary Section */}
+                <Card className="mb-4">
+                    <div className="flex items-center gap-3 mb-4">
+                        <i className="bi bi-bar-chart text-gray-600 text-lg"></i>
+                        <h2 className="text-lg font-medium text-gray-900">ALERT SUMMARY</h2>
                     </div>
 
-                    <div className="bg-yellow-100 border border-yellow-200 rounded-lg p-6 text-center">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                            <i className="bi bi-exclamation-triangle text-yellow-600"></i>
-                            <span className="text-sm font-medium text-yellow-800">WARNINGS</span>
-                        </div>
-                        <div className="text-3xl font-bold text-yellow-900">{alertSummary.warnings}</div>
-                    </div>
-
-                    <div className="bg-blue-100 border border-blue-200 rounded-lg p-6 text-center">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                            <i className="bi bi-info-circle text-blue-600"></i>
-                            <span className="text-sm font-medium text-blue-800">INFO</span>
-                        </div>
-                        <div className="text-3xl font-bold text-blue-900">{alertSummary.info}</div>
-                    </div>
-
-                    <div className="bg-green-100 border border-green-200 rounded-lg p-6 text-center">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                            <i className="bi bi-check-circle text-green-600"></i>
-                            <span className="text-sm font-medium text-green-800">RESOLVED</span>
-                        </div>
-                        <div className="text-3xl font-bold text-green-900">{alertSummary.resolved}</div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Live Notifications Feed Section */}
-            <div className="bg-white border border-gray-300 rounded-lg p-6 mb-4">
-                <div className="flex items-center gap-3 mb-4">
-                    <i className="bi bi-bell text-yellow-600 text-lg"></i>
-                    <h2 className="text-lg font-medium text-gray-900">LIVE NOTIFICATIONS FEED</h2>
-                </div>
-
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4 max-h-96 overflow-y-auto">
-                    <div className="space-y-4">
-                        {notifications.map((notification) => (
-                            <div key={notification.id} className={`border rounded-lg p-4 ${getNotificationBgColor(notification.type)}`}>
-                                <div className="flex justify-between items-start mb-2">
-                                    <div>
-                                        <h4 className="font-bold text-gray-900">{notification.type} - {notification.title}</h4>
-                                        <p className="text-sm text-gray-700 mt-1">{notification.message}</p>
-                                    </div>
-                                    <span className="text-xs text-gray-500">{notification.timestamp}</span>
-                                </div>
-
-                                {notification.actions.length > 0 && (
-                                    <div className="flex flex-wrap gap-2 mt-3">
-                                        {notification.actions.map((action, index) => (
-                                            <button
-                                                key={index}
-                                                className={`px-3 py-1 rounded text-xs font-medium ${getActionButtonColor(action)}`}
-                                            >
-                                                {action}
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div className="bg-red-100 border border-red-200 rounded-lg p-6 text-center">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <i className="bi bi-exclamation-triangle-fill text-red-600"></i>
+                                <span className="text-sm font-medium text-red-800">CRITICAL ALERTS</span>
                             </div>
-                        ))}
-                    </div>
-                </div>
+                            <div className="text-3xl font-bold text-red-900">{alertSummary.critical}</div>
+                        </div>
 
-                <div className="flex flex-wrap gap-3">
-                    <button
-                        onClick={markAllAsRead}
-                        className="px-4 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700"
-                    >
-                        MARK ALL READ
-                    </button>
-                    <button
-                        onClick={refreshFeed}
-                        className="px-4 py-2 bg-green-600 text-white rounded font-medium hover:bg-green-700"
-                    >
-                        REFRESH FEED
-                    </button>
-                    <button
-                        onClick={testAlert}
-                        className="px-4 py-2 bg-yellow-600 text-white rounded font-medium hover:bg-yellow-700"
-                    >
-                        TEST ALERT
-                    </button>
-                    <button
-                        onClick={clearAll}
-                        className="px-4 py-2 bg-red-600 text-white rounded font-medium hover:bg-red-700"
-                    >
-                        CLEAR ALL
-                    </button>
-                </div>
-            </div>
-
-            {/* Alert Triggers Section */}
-            <div className="bg-white border border-gray-300 rounded-lg p-6 mb-4">
-                <div className="flex items-center gap-3 mb-4">
-                    <i className="bi bi-lightning text-yellow-600 text-lg"></i>
-                    <h2 className="text-lg font-medium text-gray-900">ALERT TRIGGERS</h2>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {alertTriggers.map((trigger) => (
-                        <div key={trigger.id} className="border border-gray-200 rounded-lg p-4">
-                            <div className="flex items-center gap-2 mb-2">
+                        <div className="bg-yellow-100 border border-yellow-200 rounded-lg p-6 text-center">
+                            <div className="flex items-center justify-center gap-2 mb-2">
                                 <i className="bi bi-exclamation-triangle text-yellow-600"></i>
-                                <h4 className="font-bold text-gray-900">{trigger.title}</h4>
+                                <span className="text-sm font-medium text-yellow-800">WARNINGS</span>
                             </div>
-                            <p className="text-sm text-gray-600 mb-3">{trigger.description}</p>
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <div className={`w-3 h-3 rounded-full ${
-                                        trigger.status === 'active' ? 'bg-green-500' :
-                                            trigger.status === 'monitoring' ? 'bg-blue-500' : 'bg-gray-400'
-                                    }`}></div>
-                                    <span className="text-sm font-medium text-gray-700 uppercase">
-                    {trigger.status}
-                  </span>
-                                </div>
-                                <span className="text-sm text-gray-600">{trigger.count} NEW QUOTES</span>
+                            <div className="text-3xl font-bold text-yellow-900">{alertSummary.warnings}</div>
+                        </div>
+
+                        <div className="bg-blue-100 border border-blue-200 rounded-lg p-6 text-center">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <i className="bi bi-info-circle text-blue-600"></i>
+                                <span className="text-sm font-medium text-blue-800">INFO</span>
                             </div>
+                            <div className="text-3xl font-bold text-blue-900">{alertSummary.info}</div>
                         </div>
-                    ))}
-                </div>
-            </div>
 
-            {/* User & Role Configuration Section */}
-            <div className="bg-white border border-gray-300 rounded-lg p-6 mb-4">
-                <div className="flex items-center gap-3 mb-4">
-                    <i className="bi bi-person-gear text-gray-600 text-lg"></i>
-                    <h2 className="text-lg font-medium text-gray-900">USER & ROLE CONFIGURATION</h2>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Email Notifications */}
-                    <div className="border border-gray-200 rounded-lg p-4">
-                        <div className="flex items-center gap-2 mb-4">
-                            <i className="bi bi-envelope text-gray-600"></i>
-                            <h3 className="font-medium text-gray-900">EMAIL NOTIFICATIONS</h3>
+                        <div className="bg-green-100 border border-green-200 rounded-lg p-6 text-center">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <i className="bi bi-check-circle text-green-600"></i>
+                                <span className="text-sm font-medium text-green-800">RESOLVED</span>
+                            </div>
+                            <div className="text-3xl font-bold text-green-900">{alertSummary.resolved}</div>
                         </div>
-                        <div className="space-y-3">
-                            {Object.entries(emailNotifications).map(([key, value]) => (
-                                <div key={key} className="flex items-center justify-between">
-                  <span className="text-sm text-gray-700">
-                    {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-                  </span>
-                                    <button
-                                        onClick={() => toggleEmailNotification(key)}
-                                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                                            value ? 'bg-green-600' : 'bg-gray-200'
-                                        }`}
-                                    >
-                    <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                            value ? 'translate-x-6' : 'translate-x-1'
-                        }`}
-                    />
-                                    </button>
+                    </div>
+                </Card>
+
+                {/* Live Notifications Feed Section */}
+                <Card className="mb-4">
+                    <div className="flex items-center gap-3 mb-4">
+                        <i className="bi bi-bell text-yellow-600 text-lg"></i>
+                        <h2 className="text-lg font-medium text-gray-900">LIVE NOTIFICATIONS FEED</h2>
+                    </div>
+
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4 max-h-96 overflow-y-auto">
+                        <div className="space-y-4">
+                            {notifications.map((notification) => (
+                                <div key={notification.id} className={`border rounded-lg p-4 ${getNotificationBgColor(notification.type)}`}>
+                                    <div className="flex justify-between items-start mb-2">
+                                        <div>
+                                            <h4 className="font-bold text-gray-900">{notification.type} - {notification.title}</h4>
+                                            <p className="text-sm text-gray-700 mt-1">{notification.message}</p>
+                                        </div>
+                                        <span className="text-xs text-gray-500">{notification.timestamp}</span>
+                                    </div>
+
+                                    {notification.actions.length > 0 && (
+                                        <div className="flex flex-wrap gap-2 mt-3">
+                                            {notification.actions.map((action, index) => (
+                                                <Button
+                                                    key={index}
+                                                    color={getActionButtonColor(action)}
+                                                    size="xs"
+                                                    className="px-3 py-1"
+                                                >
+                                                    {action}
+                                                </Button>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    {/* System Notifications */}
-                    <div className="border border-gray-200 rounded-lg p-4">
-                        <div className="flex items-center gap-2 mb-4">
-                            <i className="bi bi-exclamation-triangle text-yellow-600"></i>
-                            <h3 className="font-medium text-gray-900">SYSTEM NOTIFICATIONS</h3>
-                        </div>
-                        <div className="space-y-3">
-                            {Object.entries(systemNotifications).map(([key, value]) => (
-                                <div key={key} className="flex items-center justify-between">
-                  <span className="text-sm text-gray-700">
-                    {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-                  </span>
-                                    <button
-                                        onClick={() => toggleSystemNotification(key)}
-                                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                                            value ? 'bg-green-600' : 'bg-gray-200'
-                                        }`}
-                                    >
-                    <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                            value ? 'translate-x-6' : 'translate-x-1'
-                        }`}
-                    />
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
+                    <div className="flex flex-wrap gap-3">
+                        <Button
+                            color="primary"
+                            size="md"
+                            onClick={markAllAsRead}
+                            className="font-medium"
+                        >
+                            MARK ALL READ
+                        </Button>
+                        <Button
+                            color="success"
+                            size="md"
+                            onClick={refreshFeed}
+                            className="font-medium"
+                        >
+                            REFRESH FEED
+                        </Button>
+                        <Button
+                            color="warning"
+                            size="md"
+                            onClick={testAlert}
+                            className="font-medium"
+                        >
+                            TEST ALERT
+                        </Button>
+                        <Button
+                            color="failure"
+                            size="md"
+                            onClick={clearAll}
+                            className="font-medium"
+                        >
+                            CLEAR ALL
+                        </Button>
                     </div>
-                </div>
+                </Card>
 
-                {/* Role-based Settings */}
-                <div className="mt-6 border border-gray-200 rounded-lg p-4">
-                    <div className="flex items-center gap-2 mb-4">
-                        <i className="bi bi-people text-gray-600"></i>
-                        <h3 className="font-medium text-gray-900">ROLE-BASED SETTINGS</h3>
+                {/* Alert Triggers Section */}
+                <Card className="mb-4">
+                    <div className="flex items-center gap-3 mb-4">
+                        <i className="bi bi-lightning text-yellow-600 text-lg"></i>
+                        <h2 className="text-lg font-medium text-gray-900">ALERT TRIGGERS</h2>
                     </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {Object.entries(roleSettings).map(([key, value]) => (
-                            <div key={key} className="flex items-center justify-between">
-                <span className="text-sm text-gray-700">
-                  {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-                </span>
-                                <button
-                                    onClick={() => toggleRoleSetting(key)}
-                                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                                        value ? 'bg-green-600' : 'bg-gray-200'
-                                    }`}
-                                >
-                  <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          value ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                  />
-                                </button>
+                        {alertTriggers.map((trigger) => (
+                            <div key={trigger.id} className="border border-gray-200 rounded-lg p-4">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <i className="bi bi-exclamation-triangle text-yellow-600"></i>
+                                    <h4 className="font-bold text-gray-900">{trigger.title}</h4>
+                                </div>
+                                <p className="text-sm text-gray-600 mb-3">{trigger.description}</p>
+                                <div className="flex items-center justify-between">
+                                    <Badge
+                                        color={getStatusBadgeColor(trigger.status)}
+                                        size="sm"
+                                        className="font-medium uppercase rounded-full"
+                                    >
+                                        {trigger.status}
+                                    </Badge>
+                                    <span className="text-sm text-gray-600">{trigger.count} ACTIVE</span>
+                                </div>
                             </div>
                         ))}
                     </div>
-                </div>
+                </Card>
+
+                {/* User & Role Configuration Section */}
+                <Card className="mb-4">
+                    <div className="flex items-center gap-3 mb-4">
+                        <i className="bi bi-person-gear text-gray-600 text-lg"></i>
+                        <h2 className="text-lg font-medium text-gray-900">USER & ROLE CONFIGURATION</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Email Notifications */}
+                        <div className="border border-gray-200 rounded-lg p-4">
+                            <div className="flex items-center gap-2 mb-4">
+                                <i className="bi bi-envelope text-gray-600"></i>
+                                <h3 className="font-medium text-gray-900">EMAIL NOTIFICATIONS</h3>
+                            </div>
+                            <div className="space-y-3">
+                                {Object.entries(emailNotifications).map(([key, value]) => (
+                                    <div key={key} className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-700">
+                                            {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                                        </span>
+                                        <button
+                                            onClick={() => toggleEmailNotification(key)}
+                                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                                                value ? 'bg-green-600' : 'bg-gray-200'
+                                            }`}
+                                        >
+                                            <span
+                                                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                                                    value ? 'translate-x-6' : 'translate-x-1'
+                                                }`}
+                                            />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* System Notifications */}
+                        <div className="border border-gray-200 rounded-lg p-4">
+                            <div className="flex items-center gap-2 mb-4">
+                                <i className="bi bi-exclamation-triangle text-yellow-600"></i>
+                                <h3 className="font-medium text-gray-900">SYSTEM NOTIFICATIONS</h3>
+                            </div>
+                            <div className="space-y-3">
+                                {Object.entries(systemNotifications).map(([key, value]) => (
+                                    <div key={key} className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-700">
+                                            {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                                        </span>
+                                        <button
+                                            onClick={() => toggleSystemNotification(key)}
+                                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                                                value ? 'bg-green-600' : 'bg-gray-200'
+                                            }`}
+                                        >
+                                            <span
+                                                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                                                    value ? 'translate-x-6' : 'translate-x-1'
+                                                }`}
+                                            />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Role-based Settings */}
+                    <div className="mt-6 border border-gray-200 rounded-lg p-4">
+                        <div className="flex items-center gap-2 mb-4">
+                            <i className="bi bi-people text-gray-600"></i>
+                            <h3 className="font-medium text-gray-900">ROLE-BASED SETTINGS</h3>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {Object.entries(roleSettings).map(([key, value]) => (
+                                <div key={key} className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-700">
+                                        {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                                    </span>
+                                    <button
+                                        onClick={() => toggleRoleSetting(key)}
+                                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                                            value ? 'bg-green-600' : 'bg-gray-200'
+                                        }`}
+                                    >
+                                        <span
+                                            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                                                value ? 'translate-x-6' : 'translate-x-1'
+                                            }`}
+                                        />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </Card>
+
             </div>
-
-
         </div>
     );
 };
 
 export default NotificationsAlerts;
-
