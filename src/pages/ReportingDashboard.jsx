@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Card } from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const ReportingDashboard = () => {
     const [filters, setFilters] = useState({
@@ -217,9 +219,9 @@ const ReportingDashboard = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                         <div>
-                            <div className="bg-yellow-500 text-white px-2 py-1 text-xs font-medium mb-2 inline-block">
+                            <label className=" text-gray-600 px-2 py-1 text-xs font-medium mb-2 inline-block">
                                 DATE RANGE
-                            </div>
+                            </label>
                             <select
                                 value={filters.dateRange}
                                 onChange={(e) => handleFilterChange('dateRange', e.target.value)}
@@ -233,9 +235,9 @@ const ReportingDashboard = () => {
                         </div>
 
                         <div>
-                            <div className="bg-yellow-500 text-white px-2 py-1 text-xs font-medium mb-2 inline-block">
+                            <label className=" text-gray-600 px-2 py-1 text-xs font-medium mb-2 inline-block">
                                 CATEGORY
-                            </div>
+                            </label>
                             <select
                                 value={filters.category}
                                 onChange={(e) => handleFilterChange('category', e.target.value)}
@@ -250,9 +252,9 @@ const ReportingDashboard = () => {
                         </div>
 
                         <div>
-                            <div className="bg-yellow-500 text-white px-2 py-1 text-xs font-medium mb-2 inline-block">
+                            <label className=" text-gray-600 px-2 py-1 text-xs font-medium mb-2 inline-block">
                                 PROJECT
-                            </div>
+                            </label>
                             <select
                                 value={filters.project}
                                 onChange={(e) => handleFilterChange('project', e.target.value)}
@@ -265,9 +267,9 @@ const ReportingDashboard = () => {
                         </div>
 
                         <div>
-                            <div className="bg-yellow-500 text-white px-2 py-1 text-xs font-medium mb-2 inline-block">
+                            <label className=" text-gray-600 px-2 py-1 text-xs font-medium mb-2 inline-block">
                                 CUSTOM DATE
-                            </div>
+                            </label>
                             <input
                                 type="date"
                                 value={filters.customDate}
@@ -549,36 +551,48 @@ const ReportingDashboard = () => {
                         <h2 className="text-base sm:text-lg font-semibold text-gray-900">EXPORT OPTIONS</h2>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <button
+                    <div className="flex flex-wrap gap-2">
+                        <Button
+                            color="failure"
+                            size="sm"
                             onClick={() => exportReport('PDF')}
-                            className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm"
+                            className="flex items-center justify-center"
                         >
-                            <i className="bi bi-file-earmark-pdf"></i>
-                            <span>PDF</span>
-                        </button>
-                        <button
+                            <i className="bi bi-file-earmark-pdf mr-1"></i>
+                            PDF
+                        </Button>
+
+                        <Button
+                            color="success"
+                            size="sm"
                             onClick={() => exportReport('Excel')}
-                            className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
+                            className="flex items-center justify-center"
                         >
-                            <i className="bi bi-file-earmark-excel"></i>
-                            <span>Excel</span>
-                        </button>
-                        <button
+                            <i className="bi bi-file-earmark-excel mr-1"></i>
+                            Excel
+                        </Button>
+
+                        <Button
+                            color="primary"
+                            size="sm"
                             onClick={() => exportReport('CSV')}
-                            className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                            className="flex items-center justify-center"
                         >
-                            <i className="bi bi-file-earmark-text"></i>
-                            <span>CSV</span>
-                        </button>
-                        <button
+                            <i className="bi bi-file-earmark-text mr-1"></i>
+                            CSV
+                        </Button>
+
+                        <Button
+                            color="gray"
+                            size="sm"
                             onClick={() => exportReport('Print')}
-                            className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm"
+                            className="flex items-center justify-center"
                         >
-                            <i className="bi bi-printer"></i>
-                            <span>Print</span>
-                        </button>
+                            <i className="bi bi-printer mr-1"></i>
+                            Print
+                        </Button>
                     </div>
+
                 </div>
             </div>
         </div>
