@@ -908,13 +908,14 @@ const StorageAssetManagement = () => {
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{asset.location}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{asset.weeklyCost}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                                                    asset.status === 'Active'
-                                                        ? 'bg-green-100 text-green-800'
-                                                        : 'bg-gray-100 text-gray-800'
-                                                }`}>
-                                                    {asset.status}
-                                                </span>
+                                            <Badge
+                                                color={asset.status === 'Active' ? 'success' : 'gray'}
+                                                size="sm"
+                                                className="w-auto px-2 py-1 rounded-full"
+                                            >
+                                                {asset.status}
+                                            </Badge>
+
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{asset.weight}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{asset.dimensions}</td>
