@@ -572,18 +572,18 @@ Attachments: ${quote.attachments.join(', ')}`);
                         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
 
                             <Button
-                                color="success"
+                                color="primary"
                                 size="md"
                                 className="flex items-center gap-2"
                                 onClick={handleExportQuotes}
                             >
-                                <i className="bi bi-download mr-2"></i>
+                                <i className="bi bi-upload mr-2"></i>
                                 <span className="hidden sm:inline">Export Quotes</span>
                                 <span className="sm:hidden">Export</span>
                             </Button>
 
                             <Button
-                                color="primary"
+                                color="success"
                                 size="md"
                                 className="flex items-center gap-2"
                                 onClick={handleCreateNew}
