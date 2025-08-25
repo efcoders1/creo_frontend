@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const ApprovalLockingListing = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -322,36 +324,36 @@ const ApprovalLockingListing = () => {
     const getStatusColor = (status) => {
         switch (status) {
             case 'LOCKED':
-                return 'bg-green-100 text-green-800';
+                return 'gray';
             case 'PENDING_APPROVAL':
-                return 'bg-yellow-100 text-yellow-800';
+                return 'warning';
             case 'UNDER_REVIEW':
-                return 'bg-blue-100 text-blue-800';
+                return 'primary';
             case 'REJECTED':
-                return 'bg-red-100 text-red-800';
+                return 'failure';
             case 'COMPLETED':
-                return 'bg-purple-100 text-purple-800';
+                return 'success';
             case 'DRAFT':
-                return 'bg-gray-100 text-gray-800';
+                return 'info';
             case 'EXPIRED':
-                return 'bg-orange-100 text-orange-800';
+                return 'gray';
             default:
-                return 'bg-gray-100 text-gray-800';
+                return 'gray';
         }
     };
 
     const getPriorityColor = (priority) => {
         switch (priority) {
             case 'CRITICAL':
-                return 'bg-red-100 text-red-800';
+                return 'failure';
             case 'HIGH':
-                return 'bg-orange-100 text-orange-800';
+                return 'orange';
             case 'MEDIUM':
-                return 'bg-yellow-100 text-yellow-800';
+                return 'warning';
             case 'LOW':
-                return 'bg-green-100 text-green-800';
+                return 'success';
             default:
-                return 'bg-gray-100 text-gray-800';
+                return 'gray';
         }
     };
 
@@ -626,13 +628,13 @@ const ApprovalLockingListing = () => {
                                 </div>
                                 <div>
                                     <span className="text-gray-600">Priority:</span>
-                                    <div className={`inline-block px-2 py-1 rounded text-xs font-medium ${getPriorityColor(selectedApproval.priority)}`}>
+                                    <div className={`inline-block px-2 py-1 text-gray-600 rounded text-xs font-medium ${getPriorityColor(selectedApproval.priority)}`}>
                                         {selectedApproval.priority}
                                     </div>
                                 </div>
                                 <div>
                                     <span className="text-gray-600">Status:</span>
-                                    <div className={`inline-block px-2 py-1 rounded text-xs font-medium ${getStatusColor(selectedApproval.status)}`}>
+                                    <div className={`inline-block px-2 py-1 rounded text-gray-600 text-xs font-medium ${getStatusColor(selectedApproval.status)}`}>
                                         {selectedApproval.status.replace('_', ' ')}
                                     </div>
                                 </div>
@@ -781,18 +783,27 @@ const ApprovalLockingListing = () => {
                         </div>
 
                         <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4">
-                            <button
-                                onClick={() => setShowEditModal(false)}
-                                className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={handleUpdateApproval}
-                                className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
-                            >
-                                Update Approval
-                            </button>
+                            <div className="flex flex-col sm:flex-row gap-2">
+                                <Button
+                                    color="gray"
+                                    size="md"
+                                    onClick={() => setShowEditModal(false)}
+                                    className="flex items-center gap-2"
+                                >
+                                    <span>Cancel</span>
+                                </Button>
+
+                                <Button
+                                    color="primary"
+                                    size="md"
+                                    onClick={handleUpdateApproval}
+                                    className="flex items-center gap-2"
+                                >
+                                    <span className="hidden sm:inline">Updatesdfsd Approval</span>
+                                    <span className="sm:hidden">Update</span>
+                                </Button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -912,7 +923,7 @@ const ApprovalLockingListing = () => {
         <div className="min-h-screen bg-gray-50 p-2 sm:p-4 lg:p-6">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
-                <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6 mb-6">
+                <Card>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-4">
                         <div>
                             <h1 className="text-lg sm:text-2xl font-bold text-gray-900 mb-2">APPROVAL & LOCKING</h1>
@@ -920,19 +931,30 @@ const ApprovalLockingListing = () => {
                         </div>
                         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
 
-                            <button   onClick={() => navigate('/approval-locking')}
-                                      className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white font-medium text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-colors">
-                                <i className="bi bi-plus-circle mr-2"></i>
-                                NEW APPROVAL
-                            </button>
-                            <button
-                                onClick={handleExportApprovals}
-                                className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-gray-600 text-white font-medium text-sm sm:text-base rounded-lg hover:bg-gray-700 transition-colors "
+                            <Button
+                                color="primary"
+                                size="md"
+                                className="flex items-center gap-2"
+                                onClick={() => navigate('/approval-locking')}
                             >
-                                <i className="bi bi-download mr-2"></i>
-                                Export
-                            </button>
+                                <i className="bi bi-plus-circle mr-2"></i>
+                                <span className="hidden sm:inline">New Approval</span>
+                                <span className="sm:hidden">New</span>
+                            </Button>
+
+                            <Button
+                                color="gray"
+                                size="md"
+                                className="flex items-center gap-2"
+                                onClick={handleExportApprovals}
+                            >
+                                <i className="bi bi-upload mr-2"></i>
+                                <span className="hidden sm:inline">Export Approvals</span>
+                                <span className="sm:hidden">Export</span>
+                            </Button>
+
                         </div>
+
                     </div>
 
                     {/* Summary Cards */}
@@ -1048,12 +1070,12 @@ const ApprovalLockingListing = () => {
                             </select>
                         </div>
                     </div>
-                </div>
+                </Card>
 
                 {/* Approvals Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     {filteredApprovals.map((approval) => (
-                        <div key={approval.id} className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6 hover:shadow-lg transition-shadow">
+                        <Card key={approval.id}  className="mt-4">
 
                             {/* Approval Header */}
                             <div className="flex items-start justify-between mb-4">
@@ -1067,12 +1089,25 @@ const ApprovalLockingListing = () => {
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-1 sm:gap-2 ml-2">
-                                    <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(approval.status)}`}>
+
+                                    <Badge
+                                        color={getStatusColor(approval.status)}
+                                        size="sm"
+                                        className="w-auto px-2 py-1 rounded-full"
+                                    >
                                         {approval.status.replace('_', ' ')}
-                                    </div>
-                                    <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium ${getPriorityColor(approval.priority)}`}>
+                                    </Badge>
+
+
+                                    <Badge
+                                        color={getPriorityColor(approval.priority)}
+                                        size="sm"
+                                        className="w-auto px-2 py-1 rounded-full"
+                                    >
                                         {approval.priority}
-                                    </div>
+                                    </Badge>
+
+
                                 </div>
                             </div>
 
@@ -1186,59 +1221,73 @@ const ApprovalLockingListing = () => {
                             </div>
 
                             {/* Action Buttons */}
-                            <div className="flex flex-col sm:flex-row gap-2 pt-3 border-t border-gray-100">
-                                <button
+                            <div className="flex justify-start gap-2 pt-3 border-t border-gray-100">
+
+                                <Button
+                                    color="primary"
+                                    size="sm"
                                     onClick={() => handleViewApproval(approval.id)}
-                                    className="flex-1 px-3 py-2 bg-blue-600 text-white text-xs sm:text-sm font-medium rounded hover:bg-blue-700 transition-colors"
+                                    className="flex items-center justify-center"
                                 >
-                                    <i className="bi bi-eye mr-1"></i>
-                                    View
-                                </button>
-                                <button
+                                    <i className="bi bi-eye"></i>
+                                </Button>
+
+                                <Button
+                                    color="gray"
+                                    size="sm"
                                     onClick={() => handleEditApproval(approval.id)}
-                                    className="flex-1 px-3 py-2 bg-gray-600 text-white text-xs sm:text-sm font-medium rounded hover:bg-gray-700 transition-colors"
+                                    className="flex items-center justify-center"
                                 >
-                                    <i className="bi bi-pencil mr-1"></i>
-                                    Edit
-                                </button>
+                                    <i className="bi bi-pencil"></i>
+                                </Button>
+
                                 {approval.status === 'PENDING_APPROVAL' && (
                                     <>
-                                        <button
+                                        <Button
+                                            color="success"
+                                            size="sm"
                                             onClick={() => handleApprove(approval.id)}
-                                            className="flex-1 px-3 py-2 bg-green-600 text-white text-xs sm:text-sm font-medium rounded hover:bg-green-700 transition-colors"
+                                            className="flex items-center justify-center"
                                         >
-                                            <i className="bi bi-check-circle mr-1"></i>
-                                            Approve
-                                        </button>
-                                        <button
+                                            <i className="bi bi-check-circle"></i>
+                                        </Button>
+
+                                        <Button
+                                            color="failure"
+                                            size="sm"
                                             onClick={() => handleReject(approval.id)}
-                                            className="flex-1 px-3 py-2 bg-red-600 text-white text-xs sm:text-sm font-medium rounded hover:bg-red-700 transition-colors"
+                                            className="flex items-center justify-center"
                                         >
-                                            <i className="bi bi-x-circle mr-1"></i>
-                                            Reject
-                                        </button>
+                                            <i className="bi bi-x-circle"></i>
+                                        </Button>
                                     </>
                                 )}
+
                                 {(approval.status === 'LOCKED' || approval.status === 'COMPLETED') && (
-                                    <button
+                                    <Button
+                                        color="warning"
+                                        size="sm"
                                         onClick={() => handleLockUnlock(approval.id)}
-                                        className="flex-1 px-3 py-2 bg-orange-600 text-white text-xs sm:text-sm font-medium rounded hover:bg-orange-700 transition-colors"
+                                        className="flex items-center justify-center"
                                     >
-                                        <i className="bi bi-unlock mr-1"></i>
-                                        Unlock
-                                    </button>
+                                        <i className="bi bi-unlock"></i>
+                                    </Button>
                                 )}
+
                                 {approval.status === 'UNDER_REVIEW' && (
-                                    <button
+                                    <Button
+                                        color="success"
+                                        size="sm"
                                         onClick={() => handleLockUnlock(approval.id)}
-                                        className="flex-1 px-3 py-2 bg-green-600 text-white text-xs sm:text-sm font-medium rounded hover:bg-green-700 transition-colors"
+                                        className="flex items-center justify-center"
                                     >
-                                        <i className="bi bi-lock mr-1"></i>
-                                        Lock
-                                    </button>
+                                        <i className="bi bi-lock"></i>
+                                    </Button>
                                 )}
+
                             </div>
-                        </div>
+
+                        </Card>
                     ))}
                 </div>
 

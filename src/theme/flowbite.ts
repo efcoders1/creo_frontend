@@ -218,6 +218,7 @@ export const customTheme: Partial<FlowbiteTheme> = {
                 success: 'bg-green-600 text-white hover:bg-green-700',
                 warning: 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200 ',
                 failure: 'bg-red-600 text-white hover:bg-red-700',
+                orange: 'bg-orange-600 text-white hover:bg-orange-700',
                 info: 'bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:text-blue-700 hover:bg-blue-100',
 
             },
