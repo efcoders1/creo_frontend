@@ -715,7 +715,7 @@ const StorageAssetManagement = () => {
                 <div className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6 mb-6">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-4">
                         <div>
-                            <h2 className="text-lg font-semibold text-gray-900">STORAGE ASSET MANAGEMENT</h2>
+                            <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">STORAGE ASSET MANAGEMENT</h1>
                             <p className="text-sm sm:text-base text-gray-600">Manage your storage assets, files, and documentation</p>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
