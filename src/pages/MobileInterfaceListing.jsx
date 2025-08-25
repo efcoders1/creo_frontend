@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import {useNavigate} from "react-router-dom";
+import { Card } from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const MobileInterfaceListing = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -257,8 +259,8 @@ const MobileInterfaceListing = () => {
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'Pending Sync': return 'bg-yellow-100 text-yellow-800';
-            case 'Synced': return 'bg-green-100 text-green-800';
+            case 'Pending Sync': return 'warning';
+            case 'Synced': return 'success';
             default: return 'bg-gray-100 text-gray-800';
         }
     };
@@ -554,19 +556,25 @@ const MobileInterfaceListing = () => {
                         </div>
 
                         <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4">
-                            <button
+                            <Button
+                                color="gray"
+                                size="sm"
                                 onClick={() => setShowEditModal(false)}
-                                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 order-2 sm:order-1"
+                                className="order-2 sm:order-1"
                             >
                                 Cancel
-                            </button>
-                            <button
+                            </Button>
+
+                            <Button
+                                color="primary"
+                                size="sm"
                                 onClick={confirmEdit}
-                                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 order-1 sm:order-2"
+                                className="order-1 sm:order-2"
                             >
-                                Save Changes
-                            </button>
+                                Save
+                            </Button>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -641,20 +649,26 @@ const MobileInterfaceListing = () => {
                             </div>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-3">
-                            <button
+
+                            <Button
+                                color="primary"
+                                size="md"
                                 onClick={handleSyncSelected}
-                                className="px-4 sm:px-6 py-2 sm:py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors text-sm sm:text-base"
+                                className="font-medium"
                             >
                                 <i className="bi bi-arrow-repeat mr-2"></i>
                                 SYNC SELECTED
-                            </button>
-                            <button
+                            </Button>
+
+                            <Button
+                                color="success"
+                                size="md"
                                 onClick={() => navigate('/mobile-interface')}
-                                className="px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
+                                className="font-medium"
                             >
                                 <i className="bi bi-plus-circle mr-2"></i>
                                 ADD NEW ENTRY
-                            </button>
+                            </Button>
                         </div>
                     </div>
                     <p className="text-sm sm:text-base text-gray-600">Manage data captured from mobile devices</p>
@@ -750,7 +764,10 @@ const MobileInterfaceListing = () => {
                                 </select>
                             </div>
                             <div className="flex items-end">
-                                <button
+
+                                <Button
+                                    color="gray"
+                                    size="md"
                                     onClick={() => {
                                         setSearchTerm('');
                                         setTypeFilter('all');
@@ -758,10 +775,12 @@ const MobileInterfaceListing = () => {
                                         setDateRange('all');
                                         setSortBy('newest');
                                     }}
-                                    className="w-full px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm sm:text-base"
+                                    className="font-medium"
                                 >
                                     Clear Filters
-                                </button>
+                                </Button>
+
+
                             </div>
                         </div>
                     </div>
@@ -802,9 +821,14 @@ const MobileInterfaceListing = () => {
                                         <div className="flex-1 min-w-0">
                                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2 mb-1">
                                                 <h3 className="text-sm sm:text-base font-semibold text-gray-900">{entry.type}</h3>
-                                                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(entry.status)} self-start sm:self-auto`}>
+                                                <Badge
+                                                    color={getStatusColor(entry.status)}
+                                                    size="sm"
+                                                    className="w-auto px-2 py-1 rounded-full font-medium self-start sm:self-auto"
+                                                >
                                                     {entry.status}
-                                                </span>
+                                                </Badge>
+
                                             </div>
                                             {entry.category && (
                                                 <p className="text-xs sm:text-sm text-gray-600 mb-1">{entry.category}</p>
@@ -850,28 +874,36 @@ const MobileInterfaceListing = () => {
 
                                     {/* Action Buttons */}
                                     <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                                        <button
+
+                                        <Button
+                                            color="primary"
+                                            size="sm"
                                             onClick={() => handleViewEntry(entry.id)}
-                                            className="flex-1 px-3 py-2 bg-blue-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                                            className="flex items-center justify-center"
                                         >
-                                            <i className="bi bi-eye mr-1 sm:mr-2"></i>
-                                            View Details
-                                        </button>
-                                        <button
+                                            <i className="bi bi-eye"></i>
+                                        </Button>
+
+                                        <Button
+                                            color="warning"
+                                            size="sm"
                                             onClick={() => handleEditEntry(entry.id)}
-                                            className="flex-1 px-3 py-2 bg-yellow-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-yellow-700 transition-colors"
+                                            className="flex items-center justify-center"
                                         >
-                                            <i className="bi bi-pencil mr-1 sm:mr-2"></i>
-                                            Edit
-                                        </button>
-                                        <button
+                                            <i className="bi bi-pencil"></i>
+                                        </Button>
+
+                                        <Button
+                                            color="failure"
+                                            size="sm"
                                             onClick={() => handleDeleteEntry(entry.id)}
-                                            className="flex-1 px-3 py-2 bg-red-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
+                                            className="flex items-center justify-center"
                                         >
-                                            <i className="bi bi-trash mr-1 sm:mr-2"></i>
-                                            Delete
-                                        </button>
+                                            <i className="bi bi-trash"></i>
+                                        </Button>
+
                                     </div>
+
                                 </div>
                             ))}
                         </div>
