@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Card } from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
+
 
 const CollaborationCommentsListing = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -351,14 +354,14 @@ const CollaborationCommentsListing = () => {
 
     const getCommentTypeColor = (type) => {
         switch (type) {
-            case 'Design Review': return 'bg-blue-100 text-blue-800';
-            case 'Technical Issue': return 'bg-red-100 text-red-800';
-            case 'Budget Alert': return 'bg-yellow-100 text-yellow-800';
-            case 'Schedule Update': return 'bg-green-100 text-green-800';
-            case 'Quality Control': return 'bg-purple-100 text-purple-800';
-            case 'Safety Concern': return 'bg-red-100 text-red-800';
-            case 'Change Request': return 'bg-orange-100 text-orange-800';
-            default: return 'bg-gray-100 text-gray-800';
+            case 'Design Review': return 'primary';
+            case 'Technical Issue': return 'failure';
+            case 'Budget Alert': return 'warning';
+            case 'Schedule Update': return 'success';
+            case 'Quality Control': return 'info';
+            case 'Safety Concern': return 'failure';
+            case 'Change Request': return 'orange';
+            default: return 'gray';
         }
     };
 
@@ -392,10 +395,10 @@ const CollaborationCommentsListing = () => {
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'ACTIVE': return 'bg-green-100 text-green-800';
-            case 'RESOLVED': return 'bg-blue-100 text-blue-800';
-            case 'ARCHIVED': return 'bg-gray-100 text-gray-800';
-            default: return 'bg-gray-100 text-gray-800';
+            case 'ACTIVE': return 'success';
+            case 'RESOLVED': return 'primary';
+            case 'ARCHIVED': return 'info';
+            default: return 'gray';
         }
     };
 
@@ -735,23 +738,33 @@ const CollaborationCommentsListing = () => {
                         <div className="flex items-center gap-3">
                             <i className="bi bi-chat-dots text-green-600 text-lg"></i>
                             <h1 className="text-lg sm:text-2xl font-semibold text-gray-900">COLLABORATION COMMENTS</h1>
-                            <span className="bg-green-600 text-white px-3 py-1 rounded text-xs sm:text-sm font-medium">
+                            <span className="text-green-600 pr-3 py-1 ">
                                 ALL USERS
                             </span>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                            <button
-                                onClick={handleExportComments}
-                                className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-green-600 text-white font-medium text-sm sm:text-base rounded-lg hover:bg-green-700 transition-colors"
-                            >
-                                <i className="bi bi-download mr-2"></i>
-                                EXPORT COMMENTS
-                            </button>
 
-                            <button onClick={() => navigate('/collaboration-comments')} className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white font-medium text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-colors">
+
+                            <Button
+                                color="primary"
+                                size="md"
+                                onClick={handleExportComments}
+                                className="font-medium"
+                            >
+                                <i className="bi bi-upload mr-2"></i>
+                                EXPORT COMMENTS
+                            </Button>
+
+
+                            <Button
+                                color="success"
+                                size="md"
+                                onClick={() => navigate('/collaboration-comments')}
+                                className="font-medium"
+                            >
                                 <i className="bi bi-plus-circle mr-2"></i>
                                 ADD COMMENT
-                            </button>
+                            </Button>
                         </div>
                     </div>
                     <p className="text-sm sm:text-base text-gray-600">Manage project collaboration and team communication</p>
@@ -896,7 +909,7 @@ const CollaborationCommentsListing = () => {
                 {/* Comments List */}
                 <div className="space-y-4 sm:space-y-6">
                     {filteredComments.map((comment) => (
-                        <div key={comment.id} className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6 hover:shadow-lg transition-shadow">
+                        <Card key={comment.id}>
                             {/* Comment Header */}
                             <div className="flex items-start gap-3 sm:gap-4 mb-4">
                                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm flex-shrink-0">
@@ -919,12 +932,22 @@ const CollaborationCommentsListing = () => {
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-1 sm:gap-2">
-                                    <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium ${getCommentTypeColor(comment.type)}`}>
+                                    <Badge
+                                        color={getCommentTypeColor(comment.type)}
+                                        size="sm"
+                                        className="w-auto px-2 py-1 rounded-full"
+                                    >
                                         {comment.type}
-                                    </div>
-                                    <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium ${getPriorityColor(comment.priority)}`}>
+                                    </Badge>
+
+                                    <Badge
+                                        color={getPriorityColor(comment.priority)}
+                                        size="sm"
+                                        className="w-auto px-2 py-1 rounded-full"
+                                    >
                                         {comment.priority}
-                                    </div>
+                                    </Badge>
+
                                 </div>
                             </div>
 
@@ -939,9 +962,15 @@ const CollaborationCommentsListing = () => {
                                     <div className="text-xs sm:text-sm font-medium text-gray-700 mb-2">Tagged:</div>
                                     <div className="flex flex-wrap gap-1 sm:gap-2">
                                         {comment.taggedUsers.map((user, index) => (
-                                            <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                                            <Badge
+                                                key={index}
+                                                color="info"
+                                                size="sm"
+                                                className="w-auto px-2 py-1 rounded-full"
+                                            >
                                                 @{user}
-                                            </span>
+                                            </Badge>
+
                                         ))}
                                     </div>
                                 </div>
@@ -971,43 +1000,60 @@ const CollaborationCommentsListing = () => {
                                         <i className="bi bi-chat"></i>
                                         <span>{comment.replies}</span>
                                     </div>
-                                    <div className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(comment.status)}`}>
+                                    <Badge
+                                        color={getStatusColor(comment.status)}
+                                        size="sm"
+                                        className="w-auto px-2 py-1 rounded-full"
+                                    >
                                         {comment.status}
-                                    </div>
+                                    </Badge>
+
                                 </div>
 
-                                <div className="flex flex-wrap gap-2">
-                                    <button
+                                <div className="flex flex-wrap justify-end gap-2">
+                                    <Button
+                                        color="primary"
+                                        size="sm"
                                         onClick={() => handleViewComment(comment.id)}
-                                        className="px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"
+                                        className="flex items-center gap-1"
                                     >
-                                        <i className="bi bi-eye mr-1"></i>
-                                        View
-                                    </button>
-                                    <button
+                                        <i className="bi bi-eye"></i>
+
+                                    </Button>
+
+                                    <Button
+                                        color="success"
+                                        size="sm"
                                         onClick={() => handleLikeComment(comment.id)}
-                                        className="px-3 py-1 bg-green-600 text-white text-xs font-medium rounded hover:bg-green-700 transition-colors"
+                                        className="flex items-center gap-1"
                                     >
-                                        <i className="bi bi-hand-thumbs-up mr-1"></i>
-                                        Like
-                                    </button>
-                                    <button
+                                        <i className="bi bi-hand-thumbs-up"></i>
+
+                                    </Button>
+
+                                    <Button
+                                        color="purple"
+                                        size="sm"
                                         onClick={() => handleReplyComment(comment.id)}
-                                        className="px-3 py-1 bg-purple-600 text-white text-xs font-medium rounded hover:bg-purple-700 transition-colors"
+                                        className="flex items-center gap-1"
                                     >
-                                        <i className="bi bi-reply mr-1"></i>
-                                        Reply
-                                    </button>
-                                    <button
+                                        <i className="bi bi-reply"></i>
+
+                                    </Button>
+
+                                    <Button
+                                        color="gray"
+                                        size="sm"
                                         onClick={() => handleEditComment(comment.id)}
-                                        className="px-3 py-1 bg-gray-600 text-white text-xs font-medium rounded hover:bg-gray-700 transition-colors"
+                                        className="flex items-center gap-1"
                                     >
-                                        <i className="bi bi-pencil mr-1"></i>
-                                        Edit
-                                    </button>
+                                        <i className="bi bi-pencil"></i>
+
+                                    </Button>
                                 </div>
+
                             </div>
-                        </div>
+                        </Card>
                     ))}
                 </div>
 

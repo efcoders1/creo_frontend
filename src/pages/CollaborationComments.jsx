@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Card } from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const CollaborationComments = () => {
     const [commentForm, setCommentForm] = useState({
@@ -112,19 +114,19 @@ const CollaborationComments = () => {
     const getCommentTypeColor = (type) => {
         switch (type) {
             case 'Design Review':
-                return 'bg-blue-100 text-blue-800';
+                return 'primary';
             case 'Technical Issue':
-                return 'bg-red-100 text-red-800';
+                return 'failure';
             case 'Budget Alert':
-                return 'bg-yellow-100 text-yellow-800';
+                return 'warning';
             case 'Schedule Update':
-                return 'bg-green-100 text-green-800';
+                return 'success';
             case 'Quality Control':
-                return 'bg-purple-100 text-purple-800';
+                return 'info';
             case 'Safety Concern':
-                return 'bg-red-100 text-red-800';
+                return 'failure';
             case 'Change Request':
-                return 'bg-orange-100 text-orange-800';
+                return 'orange';
             default:
                 return 'bg-gray-100 text-gray-800';
         }
@@ -151,7 +153,7 @@ const CollaborationComments = () => {
         <div className="min-h-screen bg-gray-50 p-2 sm:p-4 lg:p-6">
             <div className="mx-auto">
                 {/* All Users Badge */}
-                <div className="flex justify-end mb-4">
+                <div className="flex justify-end ">
                     <span className="bg-green-600 text-white px-3 py-1 rounded text-xs sm:text-sm font-medium">
                         ALL USERS
                     </span>
@@ -256,18 +258,26 @@ const CollaborationComments = () => {
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-3">
-                            <button
+
+                            <Button
+                                color="primary"
+                                size="md"
                                 onClick={() => navigate('/collaboration-comments-listing')}
-                                className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 text-sm sm:text-base"
+                                className="font-medium"
                             >
+
                                 POST COMMENT
-                            </button>
-                            <button
+                            </Button>
+
+
+                            <Button
+                                size="md"
                                 onClick={clearForm}
-                                className="w-full sm:w-auto px-6 py-2 border border-gray-400 text-gray-700 rounded font-medium hover:bg-gray-50 text-sm sm:text-base"
+                                className="font-medium text-red-600 border "
                             >
                                 CLEAR FORM
-                            </button>
+                            </Button>
+
                         </div>
                     </div>
                 </div>
@@ -297,11 +307,16 @@ const CollaborationComments = () => {
                                                 <span className="text-xs text-gray-500">{comment.timestamp}</span>
                                             </div>
 
-                                            <div className="mb-2">
-                                                <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${getCommentTypeColor(comment.type)}`}>
+                                            <div className="flex justify-start">
+                                                <Badge
+                                                    color={getCommentTypeColor(comment.type)}
+                                                    size="sm"
+                                                    className="w-auto px-2 py-1 rounded-full"
+                                                >
                                                     {comment.type}
-                                                </span>
+                                                </Badge>
                                             </div>
+
 
                                             <p className="text-gray-700 mb-3 text-sm sm:text-base leading-relaxed">{comment.content}</p>
 
@@ -339,28 +354,48 @@ const CollaborationComments = () => {
                     </div>
 
                     <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3">
-                        <button
+
+                        <Button
+                            color="success"
+                            size="sm"
                             onClick={refreshFeed}
-                            className="px-3 sm:px-4 py-2 bg-green-600 text-white rounded font-medium hover:bg-green-700 text-xs sm:text-sm"
+                            className="flex items-center justify-center"
                         >
-                            REFRESH FEED
-                        </button>
-                        <button
+                            <span className="hidden sm:inline">Refresh Feed</span>
+                            <span className="sm:hidden">Refresh</span>
+                        </Button>
+
+                        <Button
+                            color="warning"
+                            size="sm"
                             onClick={showTagged}
-                            className="px-3 sm:px-4 py-2 bg-yellow-600 text-white rounded font-medium hover:bg-yellow-700 text-xs sm:text-sm"
+                            className="flex items-center justify-center"
                         >
-                            SHOW TAGGED
-                        </button>
-                        <button
+                            <span className="hidden sm:inline">Show Tagged</span>
+                            <span className="sm:hidden">Tagged</span>
+                        </Button>
+
+                        <Button
+                            color="primary"
+                            size="sm"
                             onClick={showLineComments}
-                            className="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 text-xs sm:text-sm"
+                            className="flex items-center justify-center"
                         >
-                            LINE COMMENTS
-                        </button>
-                        <button className="px-3 sm:px-4 py-2 border border-gray-400 text-gray-700 rounded font-medium hover:bg-gray-50 text-xs sm:text-sm">
-                            SHOW ALL
-                        </button>
+                            <span className="hidden sm:inline">Line Comments</span>
+                            <span className="sm:hidden">Comments</span>
+                        </Button>
+
+                        <Button
+                            color="gray"
+                            size="sm"
+                            className="flex items-center justify-center"
+                        >
+                            <span className="hidden sm:inline">Show All</span>
+                            <span className="sm:hidden">All</span>
+                        </Button>
+
                     </div>
+
                 </div>
             </div>
         </div>
