@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Card } from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const ApprovalLocking = () => {
     const [isLocked, setIsLocked] = useState(false);
@@ -68,14 +70,14 @@ const ApprovalLocking = () => {
         <div className="min-h-screen bg-gray-50 p-2 sm:p-4 lg:p-6">
             <div className="max-w-7xl mx-auto">
                 {/* Director Only Badge */}
-                <div className="flex justify-end mb-4">
+                <div className="flex justify-end">
                     <span className="bg-red-600 text-white px-3 py-1 rounded text-xs sm:text-sm font-medium">
                         DIRECTOR ONLY
                     </span>
                 </div>
 
                 {/* Project Overview Section */}
-                <div className="bg-white border border-gray-300 rounded-lg p-4 sm:p-6 mb-4">
+                <Card className="mb-4">
                     <div className="flex items-center gap-3 mb-4">
                         <button onClick={() => navigate('/approval-locking-listing')} className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
                             <i className="bi bi-arrow-left text-lg"></i>
@@ -123,10 +125,10 @@ const ApprovalLocking = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Card>
 
                 {/* Budget Summary Section */}
-                <div className="bg-white border border-gray-300 rounded-lg p-4 sm:p-6 mb-4">
+                <Card className="mb-4">
                     <div className="flex items-center gap-3 mb-4">
                         <i className="bi bi-bar-chart text-yellow-600 text-lg"></i>
                         <h2 className="text-base sm:text-lg font-medium text-gray-900">BUDGET SUMMARY</h2>
@@ -151,7 +153,7 @@ const ApprovalLocking = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Card>
 
                 {/* Warning Message */}
                 <div className="bg-yellow-100 border border-yellow-400 rounded-lg p-3 sm:p-4 flex items-start sm:items-center gap-3 mb-4">
@@ -160,7 +162,7 @@ const ApprovalLocking = () => {
                 </div>
 
                 {/* Lock Status Section */}
-                <div className="bg-white border border-gray-300 rounded-lg p-4 sm:p-6 mb-4">
+                <Card className="mb-4">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
                         <div className="flex items-center gap-3">
                             <i className="bi bi-lock text-gray-600 text-lg"></i>
@@ -197,10 +199,10 @@ const ApprovalLocking = () => {
                             }
                         </p>
                     </div>
-                </div>
+                </Card>
 
                 {/* Pre-Approval Checklist Section */}
-                <div className="bg-white border border-gray-300 rounded-lg p-4 sm:p-6 mb-4">
+                <Card className="mb-4">
                     <div className="flex items-center gap-3 mb-4">
                         <i className="bi bi-check-square text-green-600 text-lg"></i>
                         <h2 className="text-base sm:text-lg font-medium text-gray-900">PRE-APPROVAL CHECKLIST</h2>
@@ -230,21 +232,20 @@ const ApprovalLocking = () => {
                             ))}
                         </div>
 
-                        <button
+                        <Button
+                            color="success"
+                            size="sm"
                             onClick={() => navigate('/approval-locking-listing')}
-                            className={`w-full py-3 rounded-lg font-medium text-sm sm:text-base transition-colors ${
-                                allItemsChecked
-                                    ? 'bg-green-600 text-white hover:bg-green-700'
-                                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                            }`}
+                            className="flex items-center justify-center"
                         >
                             SAVE BUDGET
-                        </button>
+                        </Button>
+
                     </div>
-                </div>
+                </Card>
 
                 {/* Audit Log Section */}
-                <div className="bg-white border border-gray-300 rounded-lg p-4 sm:p-6 mb-4">
+                <Card className="mb-4">
                     <div className="flex items-center gap-3 mb-4">
                         <i className="bi bi-file-text text-gray-600 text-lg"></i>
                         <h2 className="text-base sm:text-lg font-medium text-gray-900">AUDIT LOG</h2>
@@ -278,7 +279,7 @@ const ApprovalLocking = () => {
                             ))}
                         </div>
                     </div>
-                </div>
+                </Card>
             </div>
         </div>
     );
