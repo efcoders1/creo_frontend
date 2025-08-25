@@ -174,7 +174,7 @@ const NotificationsAlerts = () => {
             <div className="max-w-7xl mx-auto">
 
                 {/* Monitoring Badge */}
-                <div className="flex justify-end mb-4">
+                <div className="flex justify-end">
                     <span className="bg-blue-600 text-white px-3 py-1 rounded text-sm font-medium">MONITORING</span>
                 </div>
 
