@@ -348,24 +348,31 @@ const CostCategoryEdit = () => {
         <div className="min-h-screen bg-gray-50 p-2 sm:p-4 lg:p-6">
             <div className="max-w-6xl mx-auto space-y-3 sm:space-y-4 lg:space-y-6">
                 {/* Enhanced Page Header - Better Mobile Layout */}
+
                 <div className="bg-white rounded-lg border border-gray-300 p-3 sm:p-4 lg:p-6">
-                    <div className="flex flex-col gap-3 sm:gap-4 mb-3 sm:mb-4">
-                        <div className="flex items-center gap-2 sm:gap-3">
-                            <button
-                                onClick={handleBack}
-                                className="p-1.5 sm:p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
-                            >
-                                <i className="bi bi-arrow-left text-sm sm:text-base lg:text-lg"></i>
-                            </button>
-                            <i className="bi bi-pencil-square text-blue-600 text-sm sm:text-base lg:text-lg flex-shrink-0"></i>
-                            <h1 className="text-sm sm:text-lg lg:text-xl font-semibold text-gray-900 truncate">EDIT COST CATEGORY</h1>
-                        </div>
-                        <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
+                    {/* Header Row */}
+                    <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                        {/* Back Button */}
+                        <button
+                            onClick={handleBack}
+                            className="p-1.5 sm:p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
+                        >
+                            <i className="bi bi-arrow-left text-sm sm:text-base lg:text-lg"></i>
+                        </button>
+
+                        {/* Title */}
+                        <i className="bi bi-pencil-square text-blue-600 text-sm sm:text-base lg:text-lg flex-shrink-0"></i>
+                        <h1 className="text-sm sm:text-lg lg:text-xl font-semibold text-gray-900 truncate">
+                            EDIT COST CATEGORY
+                        </h1>
+
+                        {/* Buttons - Top Right */}
+                        <div className="flex items-center gap-2 sm:gap-3 ml-auto">
                             {/* Cancel Button */}
                             <Button
                                 color="gray"
                                 size="md"
-                                className="flex items-center gap-2 w-full sm:w-auto"
+                                className="flex items-center gap-2"
                                 onClick={handleCancel}
                             >
                                 <i className="bi bi-x-circle mr-1 sm:mr-2"></i>
@@ -377,7 +384,7 @@ const CostCategoryEdit = () => {
                             <Button
                                 color="primary"
                                 size="md"
-                                className="flex items-center gap-2 w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                 onClick={handleSave}
                                 disabled={saving}
                             >
@@ -396,11 +403,14 @@ const CostCategoryEdit = () => {
                                 )}
                             </Button>
                         </div>
-
-
                     </div>
-                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base leading-relaxed">Edit cost category information and settings</p>
+
+                    {/* Description */}
+                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base leading-relaxed">
+                        Edit cost category information and settings
+                    </p>
                 </div>
+
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
 
