@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Card } from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const MobileInterface = () => {
     const [activeTab, setActiveTab] = useState('cost');
@@ -140,9 +142,9 @@ const MobileInterface = () => {
                             <div className="space-y-3 sm:space-y-4">
                                 {/* Category */}
                                 <div>
-                                    <div className="bg-yellow-500 text-white px-2 py-1 text-xs font-medium mb-2 inline-block">
+                                    <label className=" block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                                         CATEGORY
-                                    </div>
+                                    </label>
                                     <select
                                         value={formData.category}
                                         onChange={(e) => handleInputChange('category', e.target.value)}
@@ -158,9 +160,9 @@ const MobileInterface = () => {
 
                                 {/* Amount */}
                                 <div>
-                                    <div className="bg-yellow-500 text-white px-2 py-1 text-xs font-medium mb-2 inline-block">
+                                    <label className=" block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                                         AMOUNT ($)
-                                    </div>
+                                    </label>
                                     <input
                                         type="number"
                                         placeholder="0.00"
@@ -172,9 +174,9 @@ const MobileInterface = () => {
 
                                 {/* Vendor/Supplier */}
                                 <div>
-                                    <div className="bg-yellow-500 text-white px-2 py-1 text-xs font-medium mb-2 inline-block">
+                                    <label className=" block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                                         VENDOR/SUPPLIER
-                                    </div>
+                                    </label>
                                     <input
                                         type="text"
                                         placeholder="Enter vendor name"
@@ -186,9 +188,9 @@ const MobileInterface = () => {
 
                                 {/* Date */}
                                 <div>
-                                    <div className="bg-yellow-500 text-white px-2 py-1 text-xs font-medium mb-2 inline-block">
+                                    <label className=" block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                                         DATE
-                                    </div>
+                                    </label>
                                     <input
                                         type="date"
                                         value={formData.date}
@@ -199,9 +201,9 @@ const MobileInterface = () => {
 
                                 {/* Notes */}
                                 <div>
-                                    <div className="bg-yellow-500 text-white px-2 py-1 text-xs font-medium mb-2 inline-block">
+                                    <label className=" block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                                         NOTES
-                                    </div>
+                                    </label>
                                     <textarea
                                         placeholder="Additional details..."
                                         value={formData.notes}
@@ -231,12 +233,16 @@ const MobileInterface = () => {
                                     className="hidden"
                                     id="photo-upload"
                                 />
-                                <label
-                                    htmlFor="photo-upload"
-                                    className="px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer transition-colors text-sm sm:text-lg"
+
+                                <button
+                                    type="button"
+                                    onClick={() => document.getElementById("photo-upload").click()}
+                                    className="flex items-center justify-center px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
                                 >
-                                    Choose Photos
-                                </label>
+                                    <i className="bi bi-image"></i>
+                                </button>
+
+
                             </div>
 
                             {uploadedPhotos.length > 0 && (
@@ -254,20 +260,25 @@ const MobileInterface = () => {
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                            <button
+                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                            <Button
+                                color="primary"
+                                size="sm"
                                 onClick={handleSubmit}
-                                className="px-4 sm:px-6 py-3 sm:py-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-base sm:text-lg"
                             >
                                 SUBMIT
-                            </button>
-                            <button
+
+                            </Button>
+                            <Button
+                                color="gray"
+                                size="sm"
                                 onClick={handleSaveOffline}
-                                className="px-4 sm:px-6 py-3 sm:py-4 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors text-base sm:text-lg"
                             >
                                 SAVE OFFLINE
-                            </button>
+
+                            </Button>
                         </div>
+
                     </div>
                 );
 
@@ -298,9 +309,14 @@ const MobileInterface = () => {
                                 rows={6}
                                 className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base sm:text-lg resize-none"
                             />
-                            <button className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors text-base sm:text-lg">
+                            <Button
+                                color="success"
+                                size="lg"
+                                className="w-full"
+                            >
                                 POST COMMENT
-                            </button>
+                            </Button>
+
                         </div>
                     </div>
                 );
@@ -388,9 +404,14 @@ const MobileInterface = () => {
                                             <p className="text-xs sm:text-sm text-gray-600 truncate">{item.description}</p>
                                             <p className="text-xs text-gray-500">{item.date}</p>
                                         </div>
-                                        <span className="px-2 py-1 bg-yellow-500 text-white text-xs font-medium rounded flex-shrink-0">
+                                        <Badge
+                                            color="warning"
+                                            size="sm"
+                                            className="w-auto px-2 py-1 rounded-full font-medium flex-shrink-0"
+                                        >
                                             {item.status}
-                                        </span>
+                                        </Badge>
+
                                     </div>
                                 </div>
                             ))}
@@ -409,23 +430,23 @@ const MobileInterface = () => {
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <button
+                            <Button
+                                color="success"
+                                size="sm"
                                 onClick={handleSync}
-                                className="px-3 sm:px-4 py-2 sm:py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors text-sm sm:text-base"
                             >
                                 SYNC NOW
-                            </button>
-                            <button
+                            </Button>
+
+                            <Button
+                                color={autoSync ? "primary" : "secondary"}
+                                size="sm"
                                 onClick={() => setAutoSync(!autoSync)}
-                                className={`px-3 sm:px-4 py-2 sm:py-3 font-medium rounded-lg transition-colors text-sm sm:text-base ${
-                                    autoSync
-                                        ? 'bg-blue-600 text-white hover:bg-blue-700'
-                                        : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
-                                }`}
                             >
-                                AUTO-SYNC: {autoSync ? 'ON' : 'OFF'}
-                            </button>
+                                AUTO-SYNC: {autoSync ? "ON" : "OFF"}
+                            </Button>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -445,9 +466,14 @@ const MobileInterface = () => {
                                     <div className="flex justify-between items-start gap-3">
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 mb-1">
-                                                <span className={`px-2 py-1 text-xs font-medium text-white rounded ${entry.color}`}>
+                                                <Badge
+                                                    color={entry.color}
+                                                    size="sm"
+                                                    className="bg-blue-600 w-auto px-2 py-1 rounded-full font-medium text-white"
+                                                >
                                                     {entry.type}
-                                                </span>
+                                                </Badge>
+
                                             </div>
                                             <h4 className="font-medium text-gray-900 text-xs sm:text-sm truncate">{entry.description}</h4>
                                             <p className="text-xs text-gray-500">{entry.date}</p>
