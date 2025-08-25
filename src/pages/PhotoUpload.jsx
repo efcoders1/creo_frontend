@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Card } from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const PhotoUpload = () => {
     const [selectedCostLine, setSelectedCostLine] = useState('');
@@ -112,10 +114,10 @@ const PhotoUpload = () => {
 
     const getTypeColor = (type) => {
         switch (type) {
-            case 'Material': return 'bg-yellow-500';
-            case 'Subcontractor': return 'bg-blue-500';
-            case 'Labour': return 'bg-green-500';
-            case 'Overhead': return 'bg-orange-500';
+            case 'Material': return 'warning' ;
+            case 'Subcontractor': return 'primary';
+            case 'Labour': return 'success';
+            case 'Overhead': return 'orange';
             default: return 'bg-gray-500';
         }
     };
@@ -508,12 +510,18 @@ const PhotoUpload = () => {
                                 className="hidden"
                                 id="file-upload"
                             />
-                            <label
-                                htmlFor="file-upload"
-                                className="px-4 sm:px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer transition-colors text-sm sm:text-base"
-                            >
-                                Choose Files
+                            <label htmlFor="file-upload">
+                                <Button
+                                    color="primary"
+                                    size="md"
+                                    className="flex items-center gap-2 cursor-pointer"
+                                >
+                                    <i className="bi bi-upload"></i>
+                                    <span className="hidden sm:inline">Choose Files</span>
+                                    <span className="sm:hidden">Upload</span>
+                                </Button>
                             </label>
+
                         </div>
                     </div>
                 </div>
@@ -530,16 +538,26 @@ const PhotoUpload = () => {
                             <div key={line.id} className="border border-gray-300 rounded-lg p-3 sm:p-4">
                                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
                                     <div className="flex items-center gap-3">
-                                        <span className={`px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-white rounded ${getTypeColor(line.type)}`}>
+                                        <Badge
+                                            color={getTypeColor(line.type)}
+                                            size="sm"
+                                            className="w-auto px-2 sm:px-3 py-1 rounded font-medium"
+                                        >
                                             {line.category} - {line.amount} ({line.type})
-                                        </span>
+                                        </Badge>
+
                                     </div>
-                                    <button
+                                    <Button
+                                        color="primary"
+                                        size="sm"
                                         onClick={() => handleCostLineUpload(line.id)}
-                                        className="w-full sm:w-auto px-3 sm:px-4 py-2 bg-blue-600 text-white text-xs sm:text-sm font-medium rounded hover:bg-blue-700 transition-colors"
+                                        className="flex items-center gap-2 w-full sm:w-auto"
                                     >
-                                        + Upload
-                                    </button>
+                                        <i className="bi bi-upload"></i>
+                                        <span className="hidden sm:inline">Upload File</span>
+                                        <span className="sm:hidden">Upload</span>
+                                    </Button>
+
                                 </div>
 
                                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-4">
@@ -624,27 +642,34 @@ const PhotoUpload = () => {
                                 </div>
 
                                 <div className="flex flex-wrap gap-2">
-                                    <button
+                                    <Button
+                                        color="primary"
+                                        size="sm"
                                         onClick={() => handleViewUpload(upload)}
-                                        className="flex-1 px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"
+                                        className="flex items-center justify-center"
                                     >
-                                        <i className="bi bi-eye mr-1"></i>
-                                        View
-                                    </button>
-                                    <button
+                                        <i className="bi bi-eye"></i>
+                                    </Button>
+
+                                    <Button
+                                        color="success"
+                                        size="sm"
                                         onClick={() => handleDownloadUpload(upload)}
-                                        className="flex-1 px-3 py-1 bg-green-600 text-white text-xs font-medium rounded hover:bg-green-700 transition-colors"
+                                        className="flex items-center justify-center"
                                     >
-                                        <i className="bi bi-download mr-1"></i>
-                                        Download
-                                    </button>
-                                    <button
+                                        <i className="bi bi-download"></i>
+                                    </Button>
+
+                                    <Button
+                                        color="failure"
+                                        size="sm"
                                         onClick={() => handleDeleteUpload(upload.id)}
-                                        className="px-3 py-1 bg-red-600 text-white text-xs font-medium rounded hover:bg-red-700 transition-colors"
+                                        className="flex items-center justify-center"
                                     >
                                         <i className="bi bi-trash"></i>
-                                    </button>
+                                    </Button>
                                 </div>
+
                             </div>
                         ))}
                     </div>
