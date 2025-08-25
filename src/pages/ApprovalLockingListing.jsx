@@ -799,7 +799,7 @@ const ApprovalLockingListing = () => {
                                     onClick={handleUpdateApproval}
                                     className="flex items-center gap-2"
                                 >
-                                    <span className="hidden sm:inline">Updatesdfsd Approval</span>
+                                    <span className="hidden sm:inline">Update Approval</span>
                                     <span className="sm:hidden">Update</span>
                                 </Button>
                             </div>
@@ -932,7 +932,7 @@ const ApprovalLockingListing = () => {
                         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
 
                             <Button
-                                color="primary"
+                                color="success"
                                 size="md"
                                 className="flex items-center gap-2"
                                 onClick={() => navigate('/approval-locking')}
@@ -943,7 +943,7 @@ const ApprovalLockingListing = () => {
                             </Button>
 
                             <Button
-                                color="gray"
+                                color="primary"
                                 size="md"
                                 className="flex items-center gap-2"
                                 onClick={handleExportApprovals}
