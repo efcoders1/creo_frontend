@@ -732,7 +732,7 @@ const StorageAssetManagement = () => {
                             </Button>
 
                             <Button
-                                color="primary"
+                                color="success"
                                 size="md"
                                 className="flex items-center gap-2"
                                 onClick={() => setShowAddFileModal(true)}
