@@ -213,11 +213,13 @@ export const customTheme: Partial<FlowbiteTheme> = {
             base: 'flex h-fit items-center gap-1 font-semibold',
             color: {
                 primary: 'bg-blue-600 text-white hover:bg-blue-700',
-                gray: 'bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600',
+                gray: 'bg-gray-100 text-gray-800 hover:bg-gray-200  ',
+                darkgray: 'bg-gray-600 text-white hover:bg-gray-700 ',
                 success: 'bg-green-600 text-white hover:bg-green-700',
-                warning: 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-900 dark:text-yellow-200 dark:hover:bg-yellow-800',
+                warning: 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200 ',
                 failure: 'bg-red-600 text-white hover:bg-red-700',
                 info: 'bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:text-blue-700 hover:bg-blue-100',
+
             },
             size: {
                 xs: 'p-1 text-xs',

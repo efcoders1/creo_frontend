@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {Card} from "flowbite-react";
+import { Button, Badge } from 'flowbite-react';
 
 const SupplierQuoteListing = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -224,13 +226,13 @@ const SupplierQuoteListing = () => {
     ]);
 
     const statusOptions = [
-        { value: 'all', label: 'ALL STATUS', color: 'bg-gray-600' },
-        { value: 'PENDING', label: 'PENDING', color: 'bg-yellow-600' },
+        { value: 'all', label: 'ALL STATUS', color: 'bg-gray-100' },
+        { value: 'PENDING', label: 'PENDING', color: 'bg-yellow-100' },
         { value: 'APPROVED', label: 'APPROVED', color: 'bg-blue-600' },
         { value: 'PAID', label: 'PAID', color: 'bg-green-600' },
         { value: 'REJECTED', label: 'REJECTED', color: 'bg-red-600' },
         { value: 'EXPIRED', label: 'EXPIRED', color: 'bg-gray-600' },
-        { value: 'UNPAID', label: 'UNPAID', color: 'bg-orange-600' }
+        { value: 'UNPAID', label: 'UNPAID', color: 'bg-blue-100' }
     ];
 
     const projectOptions = [
@@ -325,13 +327,13 @@ const SupplierQuoteListing = () => {
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'PENDING': return 'bg-yellow-100 text-yellow-800';
-            case 'APPROVED': return 'bg-blue-100 text-blue-800';
-            case 'PAID': return 'bg-green-100 text-green-800';
-            case 'REJECTED': return 'bg-red-100 text-red-800';
-            case 'EXPIRED': return 'bg-gray-100 text-gray-800';
-            case 'UNPAID': return 'bg-orange-100 text-orange-800';
-            default: return 'bg-gray-100 text-gray-800';
+            case 'PENDING': return 'warning';
+            case 'APPROVED': return 'primary';
+            case 'PAID': return 'success';
+            case 'REJECTED': return 'failure';
+            case 'EXPIRED': return 'darkgray';
+            case 'UNPAID': return 'info';
+            default: return 'darkgray';
         }
     };
 
@@ -568,21 +570,31 @@ Attachments: ${quote.attachments.join(', ')}`);
                             <h1 className="text-lg sm:text-2xl font-semibold text-gray-900">SUPPLIER QUOTE LISTING</h1>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                            <button
+
+                            <Button
+                                color="success"
+                                size="md"
+                                className="flex items-center gap-2"
                                 onClick={handleExportQuotes}
-                                className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-green-600 text-white font-medium text-sm sm:text-base rounded-lg hover:bg-green-700 transition-colors"
                             >
                                 <i className="bi bi-download mr-2"></i>
-                                EXPORT QUOTES
-                            </button>
-                            <button
+                                <span className="hidden sm:inline">Export Quotes</span>
+                                <span className="sm:hidden">Export</span>
+                            </Button>
+
+                            <Button
+                                color="primary"
+                                size="md"
+                                className="flex items-center gap-2"
                                 onClick={handleCreateNew}
-                                className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white font-medium text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-colors"
                             >
                                 <i className="bi bi-plus-circle mr-2"></i>
-                                ADD NEW QUOTE
-                            </button>
+                                <span className="hidden sm:inline">Add New Quote</span>
+                                <span className="sm:hidden">Add</span>
+                            </Button>
+
                         </div>
+
                     </div>
                     <p className="text-gray-600 text-sm sm:text-base">Manage and track all supplier quotes across projects</p>
                 </div>
@@ -712,7 +724,7 @@ Attachments: ${quote.attachments.join(', ')}`);
                 {/* Quotes Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                     {filteredQuotes.map((quote) => (
-                        <div key={quote.id} className="bg-white rounded-lg border border-gray-300 p-4 sm:p-6 hover:shadow-lg transition-shadow">
+                        <Card key={quote.id}>
 
                             {/* Quote Header */}
                             <div className="flex items-start justify-between mb-4">
@@ -724,9 +736,14 @@ Attachments: ${quote.attachments.join(', ')}`);
                                         {new Date(quote.date).toLocaleDateString()}
                                     </div>
                                 </div>
-                                <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(quote.status)} ml-2 flex-shrink-0`}>
+                                <Badge
+                                    color={getStatusColor(quote.status)}
+                                    size="sm"
+                                    className="px-2 py-1 rounded-full ml-2 flex-shrink-0"
+                                >
                                     {quote.status}
-                                </div>
+                                </Badge>
+
                             </div>
 
                             {/* Amount */}
@@ -788,48 +805,50 @@ Attachments: ${quote.attachments.join(', ')}`);
                             )}
 
                             {/* Action Buttons */}
-                            <div className="flex flex-col sm:flex-row gap-2">
-                                <button
+
+                            <div className="flex justify-start gap-2">
+                                <Button
+                                    color="primary"
+                                    size="sm"
                                     onClick={() => handleViewQuote(quote.id)}
-                                    className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                    className="flex items-center justify-center"
                                 >
                                     <i className="bi bi-eye"></i>
-                                </button>
+                                </Button>
 
-                                <button
+                                <Button
+                                    color="success"
+                                    size="sm"
                                     onClick={() => handleToggleStatus(quote.id)}
-                                    className="flex-1 px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                                    className="flex items-center justify-center"
                                 >
                                     <i className="bi bi-arrow-repeat"></i>
-                                </button>
+                                </Button>
 
-                                <button
+                                <Button
+                                    color="gray"
+                                    size="sm"
                                     onClick={() => handleEditQuote(quote.id)}
-                                    className={`flex-1 px-3 py-2 text-white rounded-lg transition-colors ${
-                                        quote.status === 'PAID'
-                                            ? 'bg-gray-400 cursor-not-allowed'
-                                            : 'bg-gray-600 hover:bg-gray-700'
-                                    }`}
+                                    className="flex items-center justify-center"
                                     disabled={quote.status === 'PAID'}
                                 >
                                     <i className="bi bi-pencil"></i>
-                                </button>
+                                </Button>
 
-                                <button
+                                <Button
+                                    color="failure"
+                                    size="sm"
                                     onClick={() => handleDeleteQuote(quote.id)}
-                                    className={`sm:w-auto px-3 py-2 text-white rounded-lg transition-colors ${
-                                        quote.status === 'PAID'
-                                            ? 'bg-gray-400 cursor-not-allowed'
-                                            : 'bg-red-600 hover:bg-red-700'
-                                    }`}
+                                    className="flex items-center justify-center"
                                     disabled={quote.status === 'PAID'}
                                 >
                                     <i className="bi bi-trash"></i>
-                                </button>
+                                </Button>
                             </div>
 
 
-                        </div>
+
+                        </Card>
                     ))}
                 </div>
 
