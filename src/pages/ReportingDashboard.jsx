@@ -219,7 +219,7 @@ const ReportingDashboard = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                         <div>
-                            <label className=" text-gray-600 px-2 py-1 text-xs font-medium mb-2 inline-block">
+                            <label className=" block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                                 DATE RANGE
                             </label>
                             <select
@@ -235,7 +235,7 @@ const ReportingDashboard = () => {
                         </div>
 
                         <div>
-                            <label className=" text-gray-600 px-2 py-1 text-xs font-medium mb-2 inline-block">
+                            <label className=" block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                                 CATEGORY
                             </label>
                             <select
@@ -252,7 +252,7 @@ const ReportingDashboard = () => {
                         </div>
 
                         <div>
-                            <label className=" text-gray-600 px-2 py-1 text-xs font-medium mb-2 inline-block">
+                            <label className=" block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                                 PROJECT
                             </label>
                             <select
@@ -267,7 +267,7 @@ const ReportingDashboard = () => {
                         </div>
 
                         <div>
-                            <label className=" text-gray-600 px-2 py-1 text-xs font-medium mb-2 inline-block">
+                            <label className=" block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                                 CUSTOM DATE
                             </label>
                             <input
